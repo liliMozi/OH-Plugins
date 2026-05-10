@@ -1,0 +1,37 @@
+schemaVersion: 1
+id: hyperframes-helper
+name: HyperFrames 助手
+publisher: williams
+author: lechan775
+version: 1.0.0
+description: HyperFrames 辅助工具集 — 一键启动预览、管理项目、从文字快速生成视频
+license: MIT
+categories:
+  - Video
+  - Tools
+keywords:
+  - hyperframes
+  - video
+  - preview
+  - quick-video
+  - animation
+homepage: https://github.com/lechan775/OH-Plugins
+repository: https://github.com/lechan775/OH-Plugins
+readmeUrl: https://github.com/lechan775/OH-Plugins/releases/download/hyperframes-helper-v1.0.0/hyperframes-helper.zip
+compatibility:
+  minAppVersion: 0.171.3
+trust: restricted
+permissions:
+  - Reads HyperFrames project metadata (projects.json)
+  - Spawns local HyperFrames CLI preview server
+  - Spawns HyperFrames CLI render subprocess
+  - Reads and writes plugin-owned project files
+contributions:
+  - tools
+  - configuration
+distribution:
+  kind: release
+  packageUrl: https://github.com/lechan775/OH-Plugins/releases/download/hyperframes-helper-v1.0.0/hyperframes-helper.zip
+  sha256: df3854be84001bb7c03e3d9cb06cf53881d4f4a1e88862b7bb1d9b50ddadbec8
+install:
+  defaultEnabled: false
