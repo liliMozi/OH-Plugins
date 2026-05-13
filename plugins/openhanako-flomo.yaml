@@ -1,0 +1,35 @@
+schemaVersion: 1
+id: openhanako-flomo
+name: OpenHanako-flomo
+publisher: "是季不是鸡"
+author: "是季不是鸡"
+version: 0.3.0
+description: "浮墨笔记（flomo）接入插件 —— 写入、搜索、管理笔记。通过 Agent 对话完成 flomo 笔记的写入、导入和搜索。"
+license: Apache-2.0
+categories:
+  - Productivity
+keywords:
+  - flomo
+  - memo
+  - notes
+  - 浮墨笔记
+homepage: https://gitee.com/ji-or-ji/OpenHanako-flomo
+repository: https://gitee.com/ji-or-ji/OpenHanako-flomo
+readmePath: README.md
+compatibility:
+  minAppVersion: 0.82.0
+trust: full-access
+permissions:
+  - Writes memos to flomo via incoming webhook
+  - Reads and searches local memo index
+  - Imports and parses flomo export HTML files
+contributions:
+  - tools
+  - configuration
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://gitee.com/ji-or-ji/OpenHanako-flomo/releases/download/v0.3.0/OpenHanako-flomo.zip
+  sha256: f68914afdad26713ba7eb99daf4228af89a45b26f8e42e9c15eae84f535a7360
+install:
+  defaultEnabled: false
