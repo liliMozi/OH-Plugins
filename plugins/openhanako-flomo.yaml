@@ -13,8 +13,8 @@ keywords:
   - memo
   - notes
   - 浮墨笔记
-homepage: https://gitee.com/ji-or-ji/OpenHanako-flomo
-repository: https://gitee.com/ji-or-ji/OpenHanako-flomo
+homepage: https://gitee.com/ji-or-ji/open-hanako-flomo
+repository: https://gitee.com/ji-or-ji/open-hanako-flomo
 readmePath: README.md
 compatibility:
   minAppVersion: 0.82.0
@@ -29,7 +29,7 @@ contributions:
   - lifecycle
 distribution:
   kind: release
-  packageUrl: https://gitee.com/ji-or-ji/OpenHanako-flomo/releases/download/v0.3.0/OpenHanako-flomo.zip
+  packageUrl: https://gitee.com/ji-or-ji/open-hanako-flomo/releases/download/v0.3.0/OpenHanako-flomo.zip
   sha256: f68914afdad26713ba7eb99daf4228af89a45b26f8e42e9c15eae84f535a7360
 install:
   defaultEnabled: false
