@@ -120,7 +120,8 @@ async function createStoredZip({ rootDir, prefix, outFile }) {
 async function main() {
   const pluginId = process.argv[2];
   if (!pluginId) throw new Error("Usage: node scripts/package-plugin.mjs <plugin-id>");
-  const pluginDir = path.join(OFFICIAL_PLUGINS_DIR, pluginId);
+  const sourceDirArg = process.argv[3];
+  const pluginDir = sourceDirArg ? path.resolve(sourceDirArg) : path.join(OFFICIAL_PLUGINS_DIR, pluginId);
   const manifestPath = path.join(pluginDir, "manifest.json");
   const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
   if (manifest.id !== pluginId) throw new Error(`${pluginId}: manifest id mismatch`);
