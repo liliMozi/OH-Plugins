@@ -1,0 +1,30 @@
+schemaVersion: 1
+id: searxng-search
+name: SearXNG Search
+publisher: scanfcccc
+author: "刘欢"
+version: 0.1.0
+description: "通过自建 SearXNG 实例搜索网络，聚合 Google、Wikipedia、Brave、GitHub 等多个搜索引擎的结果。无需 API Key，只需一个 Docker 容器。"
+license: MIT
+categories:
+  - Search
+  - Web
+  - Utility
+keywords:
+  - searxng
+  - search
+  - web-search
+  - meta-search
+  - privacy
+homepage: https://github.com/scanfcccc/searxng-search
+repository: https://github.com/scanfcccc/searxng-search
+readmePath: README.md
+compatibility:
+  minAppVersion: 0.125.0
+trust: restricted
+contributions:
+  - tools
+distribution:
+  kind: release
+  packageUrl: https://github.com/scanfcccc/searxng-search/releases/download/v0.1.0/searxng-search-release.zip
+  sha256: b395a22da5e03d9003de4dd3fe8fe0aa2e37cb4dc910b749a336a1a86a0b4502
