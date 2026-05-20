@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "zhihu-search",
+  "name": "知乎搜索",
+  "publisher": "klarkxy",
+  "author": "klarkxy",
+  "version": "1.0.0",
+  "description": "知乎开放平台 API 集成：知乎搜索、全网搜索、知乎直答、热榜。支持每日额度追踪，智能选择搜索源。",
+  "license": "SATA-2.0",
+  "categories": [
+    "search",
+    "tools"
+  ],
+  "keywords": [
+    "zhihu",
+    "search",
+    "zhida",
+    "hot-list",
+    "global-search",
+    "quota"
+  ],
+  "homepage": "https://github.com/klarkxy/hanako-plugin",
+  "repository": "https://github.com/klarkxy/hanako-plugin",
+  "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/zhihu-search/README.md",
+  "compatibility": {
+    "minAppVersion": "0.158.0"
+  },
+  "trust": "restricted",
+  "permissions": [],
+  "contributions": [
+    "tools",
+    "skills"
+  ],
+  "distribution": {
+    "kind": "release",
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-110258-817/zhihu-search.zip",
+    "sha256": "95e039db47e945d6caddf65eea8da52bf2d91addf4e103b090bfa6e816944141"
+  },
+  "install": {
+    "defaultEnabled": false
+  }
+}
