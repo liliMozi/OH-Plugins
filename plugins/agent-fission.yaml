@@ -4,7 +4,7 @@
   "name": "Agent Fission",
   "publisher": "klarkxy",
   "author": "klarkxy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Let the primary agent create a persistent standalone Hanako agent with its own identity, ishiki, optional avatar, and skill-aware setup. The new agent lives on after the conversation ends — not a temporary subagent.",
   "license": "SATA-2.0",
   "categories": [
@@ -35,8 +35,8 @@
   ],
   "distribution": {
     "kind": "release",
-    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260519-090106-505/agent-fission.zip",
-    "sha256": "8deea8741d75f1d317067c43f56886433fd3c9c190d04abeeb1ae9ac10adef2c"
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-033728-857/agent-fission.zip",
+    "sha256": "dff027999c30a86873cbcfcc03caa969a21de26a7454f7bdffa23cee4f65567d"
   },
   "install": {
     "defaultEnabled": false
