@@ -4,7 +4,7 @@
   "name": "Token Stats",
   "publisher": "klarkxy",
   "author": "klarkxy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "统计 LLM Token 每日/每周/每月消耗量与费用，支持按模型和时间范围查询",
   "license": "SATA-2.0",
   "categories": [
@@ -34,8 +34,8 @@
   ],
   "distribution": {
     "kind": "release",
-    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-110258-817/token-stats.zip",
-    "sha256": "7124112ad1fd6bce60d6e0e01dee5986cfb79721dc2b67984a995b242b040686"
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260521-024221-903/token-stats.zip",
+    "sha256": "5d2d9c0886395863b08ca9a66e2eaffbc49619405bd057cf29f92e9a002cde04"
   },
   "install": {
     "defaultEnabled": false

@@ -232,7 +232,7 @@
       "name": "Token Stats",
       "publisher": "klarkxy",
       "author": "klarkxy",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "统计 LLM Token 每日/每周/每月消耗量与费用，支持按模型和时间范围查询",
       "license": "SATA-2.0",
       "categories": [
@@ -262,8 +262,8 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-110258-817/token-stats.zip",
-        "sha256": "7124112ad1fd6bce60d6e0e01dee5986cfb79721dc2b67984a995b242b040686"
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260521-024221-903/token-stats.zip",
+        "sha256": "5d2d9c0886395863b08ca9a66e2eaffbc49619405bd057cf29f92e9a002cde04"
       },
       "install": {
         "defaultEnabled": false
@@ -275,7 +275,7 @@
       "name": "知乎搜索",
       "publisher": "klarkxy",
       "author": "klarkxy",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "知乎开放平台 API 集成：知乎搜索、全网搜索、知乎直答、热榜。支持每日额度追踪，智能选择搜索源。",
       "license": "SATA-2.0",
       "categories": [
@@ -304,8 +304,8 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-110258-817/zhihu-search.zip",
-        "sha256": "95e039db47e945d6caddf65eea8da52bf2d91addf4e103b090bfa6e816944141"
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260521-024221-903/zhihu-search.zip",
+        "sha256": "70dd1b09bd91c683b91e7bff947c02cd00764ee2dea5b927592b35d67dbac24b"
       },
       "install": {
         "defaultEnabled": false
