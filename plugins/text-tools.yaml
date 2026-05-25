@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "text-tools",
+  "name": "文本工具",
+  "publisher": "klarkxy",
+  "author": "klarkxy",
+  "version": "1.0.0",
+  "description": "文本处理工具集：字数统计等。",
+  "license": "SATA-2.0",
+  "categories": [
+    "tools",
+    "text"
+  ],
+  "keywords": [
+    "text",
+    "count",
+    "characters",
+    "word-count",
+    "字数统计"
+  ],
+  "homepage": "https://github.com/klarkxy/hanako-plugin",
+  "repository": "https://github.com/klarkxy/hanako-plugin",
+  "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/text-tools/README.md",
+  "compatibility": {
+    "minAppVersion": "0.170.0"
+  },
+  "trust": "restricted",
+  "permissions": [],
+  "contributions": [
+    "tools"
+  ],
+  "distribution": {
+    "kind": "release",
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/text-tools.zip",
+    "sha256": "7e87a7a43c4c77fc11a1ae3fea5f0a7798a96c1f7b3616374b6dc4cca5210ea7"
+  },
+  "install": {
+    "defaultEnabled": false
+  }
+}

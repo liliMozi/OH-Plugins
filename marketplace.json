@@ -7,7 +7,7 @@
       "name": "Agent Fission",
       "publisher": "klarkxy",
       "author": "klarkxy",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "description": "Let the primary agent create a persistent standalone Hanako agent with its own identity, ishiki, optional avatar, and skill-aware setup. The new agent lives on after the conversation ends — not a temporary subagent.",
       "license": "SATA-2.0",
       "categories": [
@@ -38,8 +38,8 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-033728-857/agent-fission.zip",
-        "sha256": "dff027999c30a86873cbcfcc03caa969a21de26a7454f7bdffa23cee4f65567d"
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/agent-fission.zip",
+        "sha256": "be4882ef0e8b59263961841748fdefbc170e77333ae0cb73334a286baa8bc1af"
       },
       "install": {
         "defaultEnabled": false
@@ -228,11 +228,51 @@
     },
     {
       "schemaVersion": 1,
+      "id": "text-tools",
+      "name": "文本工具",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "1.0.0",
+      "description": "文本处理工具集：字数统计等。",
+      "license": "SATA-2.0",
+      "categories": [
+        "tools",
+        "text"
+      ],
+      "keywords": [
+        "text",
+        "count",
+        "characters",
+        "word-count",
+        "字数统计"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/text-tools/README.md",
+      "compatibility": {
+        "minAppVersion": "0.170.0"
+      },
+      "trust": "restricted",
+      "permissions": [],
+      "contributions": [
+        "tools"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/text-tools.zip",
+        "sha256": "7e87a7a43c4c77fc11a1ae3fea5f0a7798a96c1f7b3616374b6dc4cca5210ea7"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "zhihu-search",
       "name": "知乎搜索",
       "publisher": "klarkxy",
       "author": "klarkxy",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "知乎开放平台 API 集成：知乎搜索、全网搜索、知乎直答、热榜。支持每日额度追踪，智能选择搜索源。",
       "license": "SATA-2.0",
       "categories": [
@@ -261,8 +301,8 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260521-024221-903/zhihu-search.zip",
-        "sha256": "70dd1b09bd91c683b91e7bff947c02cd00764ee2dea5b927592b35d67dbac24b"
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/zhihu-search.zip",
+        "sha256": "cfc308c7a24ca7eaf4313a393b754b7f81fb56cfccc9a3daa9da466ab49ce51e"
       },
       "install": {
         "defaultEnabled": false
