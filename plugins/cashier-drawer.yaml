@@ -1,0 +1,61 @@
+schemaVersion: 1
+id: cashier-drawer
+name: Cashier Drawer · 消息台
+publisher: dongshuangcheng
+author: dongshuangcheng
+version: 0.2.0
+description: Notification drawer that aggregates patrol, task, background, and alert messages into a receipt-style feed with auto-archiving at 04:00.
+license: MIT
+categories:
+  - Productivity
+  - Notifications
+keywords:
+  - notifications
+  - messages
+  - patrol
+  - drawer
+  - feed
+homepage: https://github.com/dongshuangcheng/cashier-drawer
+repository: https://github.com/dongshuangcheng/cashier-drawer
+readme: |
+  # Cashier Drawer · 消息台
+
+  HanaAgent 插件。把各类后台活动（巡检 / 定时任务 / 后台结果 / 异常告警）汇聚成可继续对话的小票流。
+
+  ## 功能
+
+  - **4 类收银机**：巡检 / 任务 / 后台 / 异常，分类清晰
+  - **自动接入**：订阅 deferred_result 和 activity_update 事件，subagent 完成、图片生成、巡检结果等自动进消息台
+  - **04:00 切日归档**：每天凌晨 4 点自动按逻辑日期切档
+  - **Page Tab UI**：左栏 4 台收银机，右栏小票流 + 输入框，支持历史日期切换
+  - **多通道推送**：HTTP API / Bus / Shell 脚本 / Agent 工具
+  - **插话能力**：用户在消息台里回复可转发到来源 session
+
+  ## 安装
+
+  在 HanaAgent 插件市场搜索「消息台」或「Cashier Drawer」，一键安装。
+
+  需要在设置中开启「允许全权插件」。
+
+  ## Agent 工具
+
+  - `cashier-drawer_push` — 推一条消息到消息台
+  - `cashier-drawer_list` — 查询某天的消息列表
+compatibility:
+  minAppVersion: 0.150.0
+trust: full-access
+permissions:
+  - Reads and writes notification message JSON files in plugin data directory
+  - Subscribes to system events (deferred_result, activity_update)
+  - Registers HTTP routes for push/list/reply API
+contributions:
+  - tools
+  - routes
+  - page
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/dongshuangcheng/cashier-drawer/releases/download/v0.2.0/cashier-drawer-0.2.0.zip
+  sha256: f37819c635b66c0d3205ddc6facea34a7e03e300a24caed352d5e3cc6df8332b
+install:
+  defaultEnabled: false
