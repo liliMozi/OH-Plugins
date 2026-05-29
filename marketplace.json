@@ -3,6 +3,50 @@
   "plugins": [
     {
       "schemaVersion": 1,
+      "id": "agent-fission",
+      "name": "Agent Fission",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "1.0.7",
+      "description": "Let the primary agent create a persistent standalone Hanako agent with its own identity, ishiki, optional avatar, and skill-aware setup. The new agent lives on after the conversation ends — not a temporary subagent.",
+      "license": "SATA-2.0",
+      "categories": [
+        "agent-management",
+        "tools",
+        "skills"
+      ],
+      "keywords": [
+        "agent",
+        "fission",
+        "split",
+        "persistent",
+        "primary-only",
+        "skills",
+        "skill-routing"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/agent-fission/README.md",
+      "compatibility": {
+        "minAppVersion": "0.170.0"
+      },
+      "trust": "restricted",
+      "permissions": [],
+      "contributions": [
+        "tools",
+        "skills"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/agent-fission.zip",
+        "sha256": "be4882ef0e8b59263961841748fdefbc170e77333ae0cb73334a286baa8bc1af"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "hanako-hyperframes",
       "name": "HyperFrames Adapter for Hanako",
       "publisher": "OpenHanako",
@@ -49,6 +93,216 @@
         "kind": "release",
         "packageUrl": "https://github.com/liliMozi/OH-Plugins/releases/download/hanako-hyperframes-v0.3.0/hanako-hyperframes.zip",
         "sha256": "0d72e16ac8794f13e5c04c2184140c642ea7bfa2f9e985f74350ec2698394819"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "local-provider",
+      "name": "Local Provider",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "0.1.1",
+      "description": "Connect LM Studio as a local chat provider and expose configurable local media runtimes for image, video, and speech.",
+      "license": "SATA-2.0",
+      "categories": [
+        "providers",
+        "local",
+        "media"
+      ],
+      "keywords": [
+        "local",
+        "lm-studio",
+        "provider",
+        "image",
+        "video",
+        "speech",
+        "cli"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/local-provider/README.md",
+      "compatibility": {
+        "minAppVersion": "0.171.3"
+      },
+      "trust": "full-access",
+      "permissions": [],
+      "contributions": [
+        "tools",
+        "skills",
+        "providers",
+        "configuration",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-033728-857/local-provider.zip",
+        "sha256": "4b829d1cf0a2a781432be2d481c74ac45fb6bd2562c7ddee4d7750d17d6ed803"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "opencode-provider",
+      "name": "OpenCode Providers",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "0.1.0",
+      "description": "提供 OpenCode Zen（按量付费通用模型）和 OpenCode Go（订阅制开源模型）的接入能力。",
+      "license": "SATA-2.0",
+      "categories": [
+        "providers"
+      ],
+      "keywords": [
+        "opencode",
+        "zen",
+        "go",
+        "provider"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/opencode-provider/README.md",
+      "compatibility": {
+        "minAppVersion": "0.171.3"
+      },
+      "trust": "full-access",
+      "permissions": [],
+      "contributions": [
+        "providers"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-090036-016/opencode-provider.zip",
+        "sha256": "a9599d65a20354600225191d3e5fc886c98e1ce55d742a85247460baed83f050"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "roleplay",
+      "name": "roleplay",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "1.0.1",
+      "description": "在对话中手动开启的深度扮演插件，输出规则参考语C、酒馆等沉浸式角色扮演应用，并持续引导场景推进与续聊。",
+      "license": "SATA-2.0",
+      "categories": [
+        "skills",
+        "roleplay"
+      ],
+      "keywords": [
+        "roleplay",
+        "deep-roleplay",
+        "tavern",
+        "语C",
+        "酒馆",
+        "沉浸",
+        "persona",
+        "continuation"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/roleplay/README.md",
+      "compatibility": {
+        "minAppVersion": "0.170.0"
+      },
+      "trust": "restricted",
+      "permissions": [],
+      "contributions": [
+        "skills"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-033728-857/roleplay.zip",
+        "sha256": "85f6f1633adf87f4428858b77c5ed66b77630046d261d1fbbac75e0c20194b0d"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "text-tools",
+      "name": "文本工具",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "1.0.0",
+      "description": "文本处理工具集：字数统计等。",
+      "license": "SATA-2.0",
+      "categories": [
+        "tools",
+        "text"
+      ],
+      "keywords": [
+        "text",
+        "count",
+        "characters",
+        "word-count",
+        "字数统计"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/text-tools/README.md",
+      "compatibility": {
+        "minAppVersion": "0.170.0"
+      },
+      "trust": "restricted",
+      "permissions": [],
+      "contributions": [
+        "tools"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/text-tools.zip",
+        "sha256": "7e87a7a43c4c77fc11a1ae3fea5f0a7798a96c1f7b3616374b6dc4cca5210ea7"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "zhihu-search",
+      "name": "知乎搜索",
+      "publisher": "klarkxy",
+      "author": "klarkxy",
+      "version": "1.0.2",
+      "description": "知乎开放平台 API 集成：知乎搜索、全网搜索、知乎直答、热榜。支持每日额度追踪，智能选择搜索源。",
+      "license": "SATA-2.0",
+      "categories": [
+        "search",
+        "tools"
+      ],
+      "keywords": [
+        "zhihu",
+        "search",
+        "zhida",
+        "hot-list",
+        "global-search",
+        "quota"
+      ],
+      "homepage": "https://github.com/klarkxy/hanako-plugin",
+      "repository": "https://github.com/klarkxy/hanako-plugin",
+      "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/zhihu-search/README.md",
+      "compatibility": {
+        "minAppVersion": "0.158.0"
+      },
+      "trust": "restricted",
+      "permissions": [],
+      "contributions": [
+        "tools",
+        "skills"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260525-161449-973/zhihu-search.zip",
+        "sha256": "cfc308c7a24ca7eaf4313a393b754b7f81fb56cfccc9a3daa9da466ab49ce51e"
       },
       "install": {
         "defaultEnabled": false

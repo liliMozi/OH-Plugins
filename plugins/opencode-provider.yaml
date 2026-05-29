@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "opencode-provider",
+  "name": "OpenCode Providers",
+  "publisher": "klarkxy",
+  "author": "klarkxy",
+  "version": "0.1.0",
+  "description": "提供 OpenCode Zen（按量付费通用模型）和 OpenCode Go（订阅制开源模型）的接入能力。",
+  "license": "SATA-2.0",
+  "categories": [
+    "providers"
+  ],
+  "keywords": [
+    "opencode",
+    "zen",
+    "go",
+    "provider"
+  ],
+  "homepage": "https://github.com/klarkxy/hanako-plugin",
+  "repository": "https://github.com/klarkxy/hanako-plugin",
+  "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/opencode-provider/README.md",
+  "compatibility": {
+    "minAppVersion": "0.171.3"
+  },
+  "trust": "full-access",
+  "permissions": [],
+  "contributions": [
+    "providers"
+  ],
+  "distribution": {
+    "kind": "release",
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-090036-016/opencode-provider.zip",
+    "sha256": "a9599d65a20354600225191d3e5fc886c98e1ce55d742a85247460baed83f050"
+  },
+  "install": {
+    "defaultEnabled": false
+  }
+}

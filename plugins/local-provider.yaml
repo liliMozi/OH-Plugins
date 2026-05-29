@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "local-provider",
+  "name": "Local Provider",
+  "publisher": "klarkxy",
+  "author": "klarkxy",
+  "version": "0.1.1",
+  "description": "Connect LM Studio as a local chat provider and expose configurable local media runtimes for image, video, and speech.",
+  "license": "SATA-2.0",
+  "categories": [
+    "providers",
+    "local",
+    "media"
+  ],
+  "keywords": [
+    "local",
+    "lm-studio",
+    "provider",
+    "image",
+    "video",
+    "speech",
+    "cli"
+  ],
+  "homepage": "https://github.com/klarkxy/hanako-plugin",
+  "repository": "https://github.com/klarkxy/hanako-plugin",
+  "readmeUrl": "https://github.com/klarkxy/hanako-plugin/blob/main/local-provider/README.md",
+  "compatibility": {
+    "minAppVersion": "0.171.3"
+  },
+  "trust": "full-access",
+  "permissions": [],
+  "contributions": [
+    "tools",
+    "skills",
+    "providers",
+    "configuration",
+    "lifecycle"
+  ],
+  "distribution": {
+    "kind": "release",
+    "packageUrl": "https://github.com/klarkxy/hanako-plugin/releases/download/release-20260520-033728-857/local-provider.zip",
+    "sha256": "4b829d1cf0a2a781432be2d481c74ac45fb6bd2562c7ddee4d7750d17d6ed803"
+  },
+  "install": {
+    "defaultEnabled": false
+  }
+}
