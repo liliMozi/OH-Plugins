@@ -1,0 +1,64 @@
+schemaVersion: 1
+id: mio-sbagent-r-web-plan
+name: Mio SBAgent R web plan
+publisher: xsfwqtj-del
+author: Hanako
+version: 3.12.0
+description: |
+  技术方案写作技能。核心工作流：分析问题 → 搜索网络 → 写出方案。
+  收到规划请求时自动执行，先理解现状和根因，再从网络获取参考信息
+  （每条结论标注来源），最后产出树状分支图加审查日志的完整方案。
+  适用于任何搜索引擎能给出有质量答案的技术领域。
+license: Apache-2.0
+categories:
+  - Planning
+  - Development
+keywords:
+  - plan
+  - workflow
+  - tech-planning
+  - skill
+  - claude-code
+homepage: https://github.com/xsfwqtj-del/Mio_SBAgent_R_plan
+repository: https://github.com/xsfwqtj-del/Mio_SBAgent_R_plan
+compatibility:
+  minAppVersion: "1.0.0"
+trust: restricted
+permissions:
+  - filesystem_read
+  - network_search
+contributions:
+  - skills
+distribution:
+  kind: release
+  packageUrl: https://github.com/xsfwqtj-del/Mio_SBAgent_R_plan/releases/download/v3.12.0/mio-sbagent-r-web-plan-v3.12.0.zip
+  sha256: 8b2af0ea56df76aaf42bfaf1a846d9e59f7780674b05bac788720a842f48ec59
+readme: |
+  ## Mio SBAgent R web plan
+
+  技术方案写作技能。核心工作流：分析问题 → 搜索网络 → 写出方案。
+  收到规划请求时自动执行，先理解现状和根因，再从网络获取参考信息，
+  最后产出树状分支图加审查日志的完整方案。
+
+  ### 七步流程
+
+  1. 分析问题 — 了解现状和约束，理解根因
+  2. 解构问题 — 树状分支，标注依赖，关键路径识别
+  3. 搜索资料 — 核心技术搜索 + 发散联想 + 关键词降维
+  4. 写初稿 — 树状分支图，每分支推到可度量终点
+  5. 审查方案 — 自审依赖、遗漏、可验证性
+  6. 补搜资料 — 针对审查盲区再次搜索
+  7. 修正定稿 — 合并修正项+补搜结论，输出 plan.md
+
+  ### 特色机制
+
+  **发散搜索**：退一步做自由联想——方案落地后谁会受影响？什么可能出错？
+
+  **关键词降维**：搜"智能药盒"无果 → 拆为"步进电机 + RTC模块 + ESP32"
+
+  **来源甄别**：官方/社区/个人三级质量标注，过期内容标注年份
+
+  ### 触发词
+
+  写方案、出计划、迁移方案、改造方案、重构方案、架构设计、技术选型、
+  怎么搭建、怎么部署、梳理思路、定方案、选哪个、选哪种
