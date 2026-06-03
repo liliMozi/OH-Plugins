@@ -53,6 +53,52 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "restart-button",
+      "name": "Restart Button",
+      "publisher": "shenmingganlin",
+      "author": "shenmingganlin",
+      "version": "1.0.0",
+      "description": "Add a right-top restart widget that silently restarts the HanaAgent desktop client without stopping hana-server.",
+      "license": "MIT",
+      "categories": [
+        "Utility",
+        "Productivity"
+      ],
+      "keywords": [
+        "restart",
+        "desktop",
+        "windows",
+        "hanaagent",
+        "bridge"
+      ],
+      "homepage": "https://github.com/shenmingganlin/restart-button",
+      "repository": "https://github.com/shenmingganlin/restart-button",
+      "readmeUrl": "https://raw.githubusercontent.com/shenmingganlin/restart-button/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.158.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "Stops the local HanaAgent.exe desktop process",
+        "Starts HanaAgent.exe with --no-sandbox",
+        "Writes restart helper scripts and restart logs to the plugin data directory",
+        "Does not stop hana-server"
+      ],
+      "contributions": [
+        "routes",
+        "widget"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/shenmingganlin/restart-button/releases/download/v1.0.0/restart-button-1.0.0.zip",
+        "sha256": "da5d8999310c0de43a6566a74c59d0e2646c241f0f726eeb5de9490a0282adf5"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
     }
   ]
 }
