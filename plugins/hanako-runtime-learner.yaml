@@ -1,0 +1,48 @@
+schemaVersion: 1
+id: hanako-runtime-learner
+name: Runtime Self-Learning
+publisher: Sun
+author: Sun
+version: 4.3.0-lts
+description: Local runtime self-learning engine for Hanako. It observes repeated workflows and failure patterns, builds conservative experience hints, and gates automated actions through policy, verification, rollback, and review controls.
+license: MIT
+categories:
+  - Agent Runtime
+  - Developer Tools
+  - Automation
+keywords:
+  - self-learning
+  - runtime
+  - memory
+  - automation
+  - skills
+  - governance
+  - hanako
+homepage: https://github.com/326sun/Hanako-runtime-learner
+repository: https://github.com/326sun/Hanako-runtime-learner
+manifestUrl: https://raw.githubusercontent.com/326sun/Hanako-runtime-learner/v4.3.0-lts/manifest.json
+readmeUrl: https://raw.githubusercontent.com/326sun/Hanako-runtime-learner/v4.3.0-lts/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.293.0
+trust: full-access
+permissions:
+  - Reads local Hanako usage metadata when enabled through the declared usage.read permission.
+  - Stores self-learning records in plugin-owned local data files.
+  - Observes repeated local workflows, failures, corrections, and runtime patterns.
+  - Injects conservative experience hints into the plugin-owned self-learning skill context.
+  - Provides local diagnostic, report, search, activity, open-dir, and control tools.
+  - May use Hanako model sampling when explicitly enabled for background summarization.
+  - Does not automatically publish releases, push git changes, create git tags, delete large file sets, modify secrets, or perform external write requests.
+contributions:
+  - tools
+  - skills
+  - configuration
+  - lifecycle
+install:
+  defaultEnabled: false
+distribution:
+  kind: release
+  packageUrl: https://github.com/326sun/Hanako-runtime-learner/releases/download/v4.3.0-lts/hanako-runtime-learner-v4.3.0-lts.zip
+  sha256: 6d94d0b9f6952afa793d3681e663a31a6768fd6d095b3154c2e15adc903f86bc
