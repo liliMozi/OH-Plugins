@@ -1,0 +1,45 @@
+schemaVersion: 1
+id: novel-vault
+name: Novel Vault
+publisher: Killin-7
+author: Killin-7
+version: 1.0.0
+description: Context and memory layer for AI-assisted long-form novel writing, built around Markdown project files.
+license: MIT
+categories:
+  - Writing
+  - Productivity
+keywords:
+  - novel
+  - writing
+  - ai-writing
+  - markdown
+  - context
+  - memory
+  - foreshadowing
+homepage: https://github.com/Killin-7/novel-vault
+repository: https://github.com/Killin-7/novel-vault
+manifestUrl: https://raw.githubusercontent.com/Killin-7/novel-vault/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/Killin-7/novel-vault/main/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.82.0
+trust: full-access
+permissions:
+  - Reads Markdown files from a user-configured novel project directory
+  - Writes archive records to user novel project Markdown files when archive-chapter is invoked
+  - Stores plugin-owned AtomicFact, writing rules, and parse cache data in the plugin data directory
+  - Provides a Novel Vault page and local plugin routes for browsing parsed novel state
+contributions:
+  - tools
+  - configuration
+  - routes
+  - page
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/Killin-7/novel-vault/releases/download/v1.0.0/novel-vault.zip
+  sha256: 49aeeefda6e13e0a32b199e646513588db26bbb0f6090aef22e055ecf47567df
+install:
+  defaultEnabled: false
