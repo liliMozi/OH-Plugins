@@ -1,0 +1,41 @@
+schemaVersion: 1
+id: achievement-gallery
+name: 成就展示馆
+publisher: statem-li
+author: statem-li
+version: 1.0.0
+description: 全链路成就系统，记录你的 vibecoding 旅程。150 个成就、9 大分类，档案式成就墙，支持最新成就奖台与深色模式。
+license: Apache-2.0
+categories:
+  - Productivity
+  - Gamification
+keywords:
+  - achievement
+  - gamification
+  - vibecoding
+  - stats
+  - gallery
+homepage: https://github.com/statem-li/achievement-gallery
+repository: https://github.com/statem-li/achievement-gallery
+readmeUrl: https://raw.githubusercontent.com/statem-li/achievement-gallery/main/README.md
+source:
+  kind: external-repository
+  path: https://github.com/statem-li/achievement-gallery
+compatibility:
+  minAppVersion: 0.170.0
+trust: full-access
+permissions:
+  - 订阅会话与工具事件以判定成就解锁
+  - 读写插件私有数据目录（SQLite 成就进度）
+  - 提供 HTTP 路由与展示馆页面
+contributions:
+  - tools
+  - routes
+  - page
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/statem-li/achievement-gallery/releases/download/v1.0.0/achievement-gallery.zip
+  sha256: c8e6f9be8d89f9a168af255774f15a34f1b96148a3ca1ba04f12ce0d098b15e8
+install:
+  defaultEnabled: false
