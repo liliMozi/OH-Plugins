@@ -1,0 +1,40 @@
+schemaVersion: 1
+id: hanabrew
+name: 花酿
+publisher: moononnn
+author: moononnn & 小花
+version: 1.0.0
+description: 花酿酒馆 v1.0 — 原生 SillyTavern 1.18.0 引擎。需要 Node.js 18+ 和 Edge 浏览器。角色扮演、写卡测卡、Agent 全透明调试。
+license: AGPL-3.0
+categories:
+  - 角色扮演
+  - 创作工具
+keywords:
+  - SillyTavern
+  - 酒馆
+  - 角色扮演
+  - 写卡
+  - 测试
+homepage: https://github.com/moononnn/hanabrew
+repository: https://github.com/moononnn/hanabrew
+manifestUrl: https://raw.githubusercontent.com/moononnn/hanabrew/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/moononnn/hanabrew/main/README.md
+compatibility:
+  minAppVersion: 0.1.0
+trust: full-access
+permissions:
+  - 运行本地 SillyTavern 1.18.0 子进程（需要 Node.js 18+ 与 Edge 浏览器）
+  - 首次打开自动下载引擎依赖（npm，约 320MB；失败自动重试并切换镜像源）
+  - 发起网络请求（允许所有主机）
+  - 读写插件数据（%APPDATA%\hanabrew）
+  - 提供页面、工具与后端路由
+contributions:
+  - tools
+  - page
+  - routes
+distribution:
+  kind: release
+  packageUrl: https://github.com/moononnn/hanabrew/releases/download/v1.0.0/hanabrew-v1.0.0.zip
+  sha256: cce976c17d25ab75d6cee6bfd84a7e4bd9dd67c8fc1c11a247c5951577d38e2e
+install:
+  defaultEnabled: true
