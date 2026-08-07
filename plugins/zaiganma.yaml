@@ -1,0 +1,37 @@
+schemaVersion: 1
+id: zaiganma
+name: 在干嘛
+publisher: moononnn
+author: moononnn & 小花
+version: 0.2.3
+description: 桌面弹幕插件——定时截图分析屏幕内容，生成不同风格的弹幕飘过。支持多风格混搭、自定义模型、外观定制。需要 Python 3.8+。
+license: MIT
+categories:
+  - 趣味
+keywords:
+  - 弹幕
+  - 桌面
+  - 截图
+  - 分析
+homepage: https://github.com/moononnn/zaiganma
+repository: https://github.com/moononnn/zaiganma
+manifestUrl: https://raw.githubusercontent.com/moononnn/zaiganma/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/moononnn/zaiganma/main/README.md
+compatibility:
+  minAppVersion: 0.1.0
+trust: full-access
+permissions:
+  - 定时截图并分析屏幕内容（需要 Python 3.8+ 运行浮层）
+  - 发起本地请求（仅 127.0.0.1）
+  - 写入插件自身数据
+  - 提供页面、工具与后端路由
+contributions:
+  - tools
+  - page
+  - routes
+distribution:
+  kind: release
+  packageUrl: https://github.com/moononnn/zaiganma/releases/download/v0.2.3/zaiganma-v0.2.3.zip
+  sha256: fd8c960236d46907b2e77f670e8cc6af797f0f423bfdd14450c602f0b651eb57
+install:
+  defaultEnabled: true
