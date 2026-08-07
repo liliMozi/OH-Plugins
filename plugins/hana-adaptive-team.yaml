@@ -1,0 +1,36 @@
+schemaVersion: 1
+id: hana-adaptive-team
+name: 自适应开发团队
+publisher: v20227
+author: chidiansha
+version: 0.3.2
+description: 提供领航者、工程师和审查官三个独立 Agent，以及三套按需协作的专属 Skill。
+license: MIT
+categories:
+  - Development
+  - Agents
+keywords:
+  - adaptive-team
+  - agents
+  - skills
+  - development
+  - review
+homepage: https://github.com/v20227/hana-adaptive-team
+repository: https://github.com/v20227/hana-adaptive-team
+readmeUrl: https://raw.githubusercontent.com/v20227/hana-adaptive-team/main/README.md
+compatibility:
+  minAppVersion: 0.158.0
+trust: restricted
+permissions:
+  - 注册领航者、工程师、审查官三个 Agent 模板
+  - 提供三套仅限对应角色使用的 Skill
+  - 在用户授权的任务范围内执行本地文件读写与命令
+contributions:
+  - agents
+  - skills
+distribution:
+  kind: release
+  packageUrl: https://github.com/v20227/hana-adaptive-team/releases/download/hana-adaptive-team-v0.3.2/hana-adaptive-team.zip
+  sha256: 9ebfd4573298e316146016a6ab1c0de0b0f7ffb12a5ad49549ce2e1ac3c030be
+install:
+  defaultEnabled: false
