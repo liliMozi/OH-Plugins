@@ -1,0 +1,37 @@
+schemaVersion: 1
+id: hanako-gitcoauthor
+name: Git Coauthor
+publisher: svier0
+author: 心衍
+version: 1.0.1
+description: 为 HanaAgent 的 Git 提交自动添加 Co-authored-by 署名，区分 Agent 与用户操作
+license: MIT
+categories:
+  - Development
+keywords:
+  - git
+  - coauthor
+  - git-commit
+  - gitcoauthor
+  - 署名
+homepage: https://github.com/svier0/hanako-gitcoauthor
+repository: https://github.com/svier0/hanako-gitcoauthor
+readmeUrl: https://raw.githubusercontent.com/svier0/hanako-gitcoauthor/main/README.md
+source:
+  kind: github
+  owner: svier0
+  repo: hanako-gitcoauthor
+compatibility:
+  minAppVersion: 0.171.3
+trust: full-access
+permissions:
+  - Appends Co-authored-by trailers to git commit messages (追加'Co-authored-by'字段到git的提交信息)
+contributions:
+  - tools
+  - configuration
+distribution:
+  kind: release
+  packageUrl: https://github.com/svier0/hanako-gitcoauthor/archive/refs/tags/v1.0.1.zip
+  sha256: 7b057952bc052f2d8c0085950daa0c5802f6eccf38d1b0ab7d1bfbed833b110c
+install:
+  defaultEnabled: false
