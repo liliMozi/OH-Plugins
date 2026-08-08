@@ -8,10 +8,11 @@
   "scripts": {
     "build:index": "node scripts/build-marketplace.mjs",
     "package:hanako-hyperframes": "node scripts/package-plugin.mjs hanako-hyperframes",
+    "package:hanako-code-forge": "node scripts/package-plugin.mjs hanako-code-forge",
     "validate": "node scripts/validate.mjs",
     "check": "npm run build:index && npm run validate"
   },
   "devDependencies": {
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.3.1"
   }
 }

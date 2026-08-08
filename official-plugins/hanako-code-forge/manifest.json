@@ -1,0 +1,47 @@
+{
+  "manifestVersion": 1,
+  "id": "hanako-code-forge",
+  "name": "Hanako Code Forge",
+  "version": "0.1.2",
+  "description": "强化 Hanako 的编程工作流：澄清需求、约束改动、设计验证并生成可执行工程简报。",
+  "minAppVersion": "0.159.0",
+  "trust": "full-access",
+  "ui": {
+    "hostCapabilities": []
+  },
+  "contributes": {
+    "page": {
+      "title": "Code Forge",
+      "route": "/page",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M8 7 3.5 12 8 17M16 7l4.5 5-4.5 5M14 4l-4 16\"/></svg>"
+    },
+    "widget": {
+      "title": "Code Forge",
+      "route": "/widget",
+      "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 6h16v12H4zM8 10l2 2-2 2M12 14h4\"/></svg>"
+    }
+  },
+  "dev": {
+    "scenarios": [
+      {
+        "id": "forge-brief-smoke",
+        "steps": [
+          {
+            "invokeTool": {
+              "name": "forge_coding_brief",
+              "input": {
+                "goal": "为设置页增加主题切换按钮",
+                "stack": "TypeScript + React",
+                "constraints": ["沿用现有主题变量", "不新增依赖"],
+                "acceptance": ["切换立即生效", "重启后保留选择"]
+              }
+            }
+          },
+          {
+            "expectToolText": "工程简报"
+          }
+        ]
+      }
+    ]
+  }
+}
