@@ -163,11 +163,16 @@ try { parent.postMessage({ source: "hana-plugin", type: "ready" }, "*"); } catch
 })();
 `;
 
+function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+
 export default function (app, ctx) {
   app.get("/sidebar", (c) => {
     const th = c.req.query("hana-theme") || "inherit";
+    const hanaCss = c.req.query("hana-css") || "";
+    const hcLink = hanaCss ? `<link rel="stylesheet" href="${esc(hanaCss)}">` : "";
     return c.html(`<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+${hcLink}
 <style>${WIDGET_CSS}</style>
 </head><body data-hana-theme="${th}" data-surface="widget">
 <div class="card">
