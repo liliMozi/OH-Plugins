@@ -3,7 +3,7 @@ id: voice-announcer
 name: 语音播报
 publisher: statem-li
 author: statem-li
-version: 0.1.8
+version: 0.1.9
 description: 让 Hana 开口说话：回复自动朗读，晓晓音色，边生成边读。内置语音桥接即装即用，实时朗读、插话打断、卡片播报、11 种音色。
 license: Apache-2.0
 categories:
@@ -38,7 +38,7 @@ contributions:
   - lifecycle
 distribution:
   kind: release
-  packageUrl: https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.1.8/voice-announcer-v0.1.8.zip
-  sha256: c34c86c153a12838ac0782dd303e488186b9f4c377eb5194b31e542c4e4295d7
+  packageUrl: https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.1.8/voice-announcer-v0.1.9.zip
+  sha256: 3dc5ff568e3a31289b89df6632e2253b64d29407641416843d48f671363888ed
 install:
   defaultEnabled: false
