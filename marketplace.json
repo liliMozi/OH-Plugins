@@ -3,6 +3,52 @@
   "plugins": [
     {
       "schemaVersion": 1,
+      "id": "hana-dashboard",
+      "name": "Hana-Poworkbench",
+      "publisher": "星云下的薰衣草",
+      "author": "Magnemomet",
+      "version": "0.1.0",
+      "description": "一页纸工作台：Memo / Todo / Projects / Notes，数据主权在 dashboard.md（apex-dashboard 移植，UI 参照 token-tracker）",
+      "license": "0BSD",
+      "categories": [
+        "Productivity",
+        "Dashboard"
+      ],
+      "keywords": [
+        "dashboard",
+        "memo",
+        "todo",
+        "projects",
+        "notes",
+        "markdown"
+      ],
+      "homepage": "https://github.com/Magnemomet/Hana-Poworkbench",
+      "repository": "https://github.com/Magnemomet/Hana-Poworkbench",
+      "readmeUrl": "https://raw.githubusercontent.com/Magnemomet/Hana-Poworkbench/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.158.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "Reads and writes dashboard.md via resource.read / resource.write",
+        "Serves dashboard page route (/dashboard) and Agent tools"
+      ],
+      "contributions": [
+        "page",
+        "tools",
+        "routes"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/Magnemomet/Hana-Poworkbench/releases/download/v0.1.0/hana-dashboard.zip",
+        "sha256": "08e04d27f40b337a15c8392dfb7e7e15ac232c436caeaa835fb147abbd334312"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "hanako-hyperframes",
       "name": "HyperFrames Adapter for Hanako",
       "publisher": "OpenHanako",
