@@ -1,0 +1,44 @@
+schemaVersion: 1
+id: hanako-code-forge
+name: Hanako Code Forge
+publisher: KSKOOO
+author: "123"
+version: 0.1.2
+description: Strengthen Hanako coding workflows with requirement clarification, scoped changes, validation evidence, risk review, and reusable engineering briefs.
+license: Apache-2.0
+categories:
+  - Developer Tools
+  - Productivity
+keywords:
+  - coding
+  - development
+  - code-review
+  - planning
+  - hanako
+homepage: https://github.com/liliMozi/OH-Plugins
+repository: https://github.com/liliMozi/OH-Plugins
+readmePath: official-plugins/hanako-code-forge/README.md
+source:
+  kind: official-source
+  path: official-plugins/hanako-code-forge
+compatibility:
+  minAppVersion: 0.159.0
+trust: full-access
+permissions:
+  - Runs as full-access because Hana page, widget, custom route, and lifecycle contributions execute trusted plugin code
+  - Current reviewed code renders local UI, generates engineering briefs, and uses the WebView browser clipboard API only after an explicit user action
+  - Registers a local status EventBus handler that returns plugin readiness metadata and writes lifecycle logs
+  - Current reviewed code declares no iframe host messaging, network, user-file, subprocess, environment, or credential access capability
+contributions:
+  - tools
+  - skills
+  - routes
+  - page
+  - widget
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/KSKOOO/OH-Plugins/releases/download/hanako-code-forge-v0.1.2/hanako-code-forge.zip
+  sha256: 17cf82a11c074439b82eb4042f0d46867ea7d988f0b8e2d51d623df42cf805a9
+install:
+  defaultEnabled: false

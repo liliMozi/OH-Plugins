@@ -8,6 +8,9 @@ const OFFICIAL_PLUGINS_DIR = path.join(ROOT, "official-plugins");
 const DIST_DIR = path.join(ROOT, "dist");
 const EXCLUDED_DIRS = new Set(["tests", "ui", "node_modules"]);
 const EXCLUDED_FILES = new Set([".DS_Store", "package-lock.json"]);
+const SAFE_TOP_LEVEL_FILES = new Set(["manifest.json", "index.js", "README.md", "THIRD_PARTY_NOTICES.md", "package.json"]);
+const SAFE_TOP_LEVEL_DIRS = new Set(["assets", "routes", "tools", "skills", "lib", "providers", "extensions"]);
+const FORBIDDEN_RELEASE_EXTENSIONS = new Set([".env", ".pem", ".key", ".p12", ".crt", ".db", ".log", ".zip", ".tgz"]);
 
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256);
@@ -47,8 +50,23 @@ async function collectFiles(rootDir, dir = rootDir) {
   return files.sort((a, b) => a.relativePath.localeCompare(b.relativePath));
 }
 
+function assertSafeReleaseFiles(files) {
+  for (const file of files) {
+    const parts = file.relativePath.split("/");
+    const top = parts[0];
+    const allowed = parts.length === 1 ? SAFE_TOP_LEVEL_FILES.has(top) : SAFE_TOP_LEVEL_DIRS.has(top);
+    if (!allowed) throw new Error(`Refusing unexpected release file: ${file.relativePath}`);
+    const lower = file.relativePath.toLowerCase();
+    const extension = path.extname(lower);
+    if (FORBIDDEN_RELEASE_EXTENSIONS.has(extension) || /(^|\/)(secret|secrets|credential|credentials)(\.|\/|$)/i.test(lower)) {
+      throw new Error(`Refusing sensitive release file: ${file.relativePath}`);
+    }
+  }
+}
+
 async function createStoredZip({ rootDir, prefix, outFile }) {
   const files = await collectFiles(rootDir);
+  assertSafeReleaseFiles(files);
   const locals = [];
   const centrals = [];
   let offset = 0;
