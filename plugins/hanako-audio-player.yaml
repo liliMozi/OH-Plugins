@@ -1,0 +1,41 @@
+schemaVersion: 1
+id: hanako-audio-player
+name: 音频播放器
+publisher: openhanako-labs
+author: Yuexiye
+version: 0.4.0
+description: Hanako 音频播放器插件。支持本地音乐、在线流、音乐搜索、场景调度、Bus 编排、TTS 语音合成。
+license: AGPL-3.0
+categories:
+  - Media
+  - Audio
+keywords:
+  - audio
+  - music
+  - player
+  - tts
+  - cosyvoice
+  - scene
+homepage: https://github.com/openhanako-labs/openhanako-audio-player
+repository: https://github.com/openhanako-labs/openhanako-audio-player
+readmePath: README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.0.0
+trust: full-access
+permissions:
+  - Runs local TTS subprocesses (CosyVoice)
+  - Reads and writes audio files to plugin media directory
+  - Plays audio in the browser
+  - Makes network requests to music streaming APIs
+contributions:
+  - tools
+  - routes
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/openhanako-labs/openhanako-audio-player/releases/download/v0.4.0/hanako-audio-player-v0.4.0.zip
+  sha256: 8fef2f8fc6abe8a947086c7d667eee1861c52754534a7359278cf3acf3c1ca73
+install:
+  defaultEnabled: false

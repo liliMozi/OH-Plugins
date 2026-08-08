@@ -1,0 +1,42 @@
+schemaVersion: 1
+id: hanako-mail
+name: Hanako Mail
+publisher: openhanako-labs
+author: Yuexiye
+version: 0.1.16
+description: 多邮箱聚合管理插件。支持 ClawEmail、AgentQQ 官方 API，以及个人邮箱 IMAP/SMTP。多账号、文件夹、已读未读、回复、附件、实时收件通知。
+license: AGPL-3.0
+categories:
+  - Communication
+  - Productivity
+keywords:
+  - mail
+  - email
+  - imap
+  - smtp
+  - clawemail
+  - agentqq
+homepage: https://github.com/openhanako-labs/Openhanako-mail
+repository: https://github.com/openhanako-labs/Openhanako-mail
+readmePath: README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.0.0
+trust: full-access
+permissions:
+  - Reads and writes email data (encrypted credentials, mail cache)
+  - Sends and receives emails
+  - Opens external links and downloads attachments
+  - Reads and writes plugin resource data
+  - Writes to clipboard
+contributions:
+  - page
+  - tools
+  - configuration
+distribution:
+  kind: release
+  packageUrl: https://github.com/openhanako-labs/Openhanako-mail/releases/download/v0.1.16/hanako-mail-v0.1.16.zip
+  sha256: e67c220ea94cb0dc431f7dcc12481da731da5ba8a2f95d95653a12083315037f
+install:
+  defaultEnabled: false
