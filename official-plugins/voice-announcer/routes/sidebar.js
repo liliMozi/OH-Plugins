@@ -50,6 +50,9 @@ body { font-family: var(--font-ui, system-ui, sans-serif); color: var(--text, #2
 .select-wrap select:hover { background: var(--accent-light, rgba(83,125,150,.08)); }
 .select-wrap select:focus { outline: none; border-color: var(--accent, #537D96); }
 .select-wrap .arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; color: var(--text-muted, #6B6158); pointer-events: none; }
+.select-wrap select option,
+.select-wrap select optgroup { color: var(--text-light, #4A433C); background: var(--bg-card, #FBF7EE); }
+.select-wrap select option:checked { background: var(--accent-light, rgba(83,125,150,.12)); color: var(--text, #2A2622); }
 input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 20px; background: transparent; cursor: pointer; }
 input[type=range]::-webkit-slider-runnable-track { height: 3px; border-radius: 2px; background: var(--border, #D8CFBE); }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent, #537D96); margin-top: -5.5px; border: 2.5px solid var(--bg-card, #FBF7EE); box-shadow: 0 1px 2px rgba(42,38,34,.18); }
