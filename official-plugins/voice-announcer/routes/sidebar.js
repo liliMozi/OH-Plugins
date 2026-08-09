@@ -1,4 +1,8 @@
-// routes/sidebar.js — 语音播报侧边栏（设置面板）
+// routes/sidebar.js — 声律侧边栏（设置面板）
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 const VOICE_GROUPS = [
   {
     label: "在线音色",
@@ -22,6 +26,23 @@ const VOICE_GROUPS = [
     ]
   }
 ];
+
+function parseRules() {
+  const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+  try {
+    const md = fs.readFileSync(path.join(root, "RULES.md"), "utf8");
+    const rules = [];
+    let cur = null;
+    for (const line of md.split(/\r?\n/)) {
+      const m = line.match(/^##\s+(.+)$/);
+      if (m) { cur = { title: m[1].trim(), points: [] }; rules.push(cur); continue; }
+      if (!cur) continue;
+      if (/^\s*[-*]\s+/.test(line)) cur.points.push(line.replace(/^\s*[-*]\s+/, "").trim());
+      else if (/^\s*\d+\.\s+/.test(line)) cur.points.push(line.replace(/^\s*\d+\.\s+/, "").trim());
+    }
+    return rules;
+  } catch { return []; }
+}
 
 const WIDGET_CSS = `
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,6 +92,18 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 .btn.primary { border-color: var(--accent, #537D96); background: var(--accent, #537D96); color: #FFFDF7; }
 .btn.primary:hover { background: var(--accent-hover, #3F6179); }
 .st { font-size: 11px; color: var(--text-muted, #6B6158); min-height: 15px; line-height: 1.5; margin-top: 12px; text-align: center; letter-spacing: 0.04em; }
+.rules { display: flex; flex-direction: column; gap: 8px; }
+.rule { border: 0.5px solid var(--border, #D8CFBE); border-radius: var(--radius-chat-card, 4px); overflow: hidden; }
+.rule-h { display: flex; align-items: center; gap: 7px; padding: 9px 11px; font-size: 12px; font-weight: 500; color: var(--text, #2A2622); cursor: pointer; user-select: none; letter-spacing: 0.03em; }
+.rule-h:hover { background: var(--accent-light, rgba(83,125,150,.08)); }
+.arr { width: 11px; height: 11px; color: var(--text-muted, #6B6158); transition: transform .15s; flex: none; }
+.rule.open .arr { transform: rotate(90deg); }
+.rule-b { display: none; padding: 9px 13px 11px; border-top: 0.5px solid var(--border, #D8CFBE); font-size: 11.5px; color: var(--text-light, #4A433C); line-height: 1.65; }
+.rule.open .rule-b { display: block; }
+.rule-b ul { list-style: none; margin: 0; padding: 0; }
+.rule-b li { padding-left: 11px; position: relative; }
+.rule-b li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 4px; height: 4px; border-radius: 50%; background: var(--accent, #537D96); opacity: .55; }
+.rule-b li + li { margin-top: 4px; }
 `;
 
 const WIDGET_JS = `
@@ -161,7 +194,29 @@ $("maxLen").addEventListener("change", save);
 $("stopBtn").addEventListener("click", doStop);
 $("testBtn").addEventListener("click", doTest);
 
+function renderRules(list){
+  var html = "";
+  for (var i = 0; i < list.length; i++){
+    var r = list[i];
+    html += '<div class="rule"><div class="rule-h"><svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2l4 4-4 4"/></svg>' + esc(r.title) + '</div><div class="rule-b"><ul>';
+    for (var j = 0; j < r.points.length; j++){ html += '<li>' + esc(r.points[j]) + '</li>'; }
+    html += '</ul></div></div>';
+  }
+  $("rules").innerHTML = html;
+  var hs = document.querySelectorAll(".rule-h");
+  for (var k = 0; k < hs.length; k++){
+    hs[k].addEventListener("click", function(){ this.parentNode.classList.toggle("open"); });
+  }
+}
+
+function loadRules(){
+  fetch(base + "/sidebar/rules" + q).then(function(r){ return r.json(); }).then(function(d){
+    if (d && d.ok) { renderRules(d.rules || []); }
+  }).catch(function(){});
+}
+
 load();
+loadRules();
 try { parent.postMessage({ source: "hana-plugin", type: "ready" }, "*"); } catch(e){}
 })();
 `;
@@ -180,7 +235,7 @@ ${hcLink}
 </head><body data-hana-theme="${th}" data-surface="widget">
 <div class="card">
   <div class="head">
-    <div class="title"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>语音播报</div>
+    <div class="title"><svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>声律</div>
     <div class="badge"><span class="dot" id="dot"></span><span id="badgeText">自动播报中</span></div>
   </div>
 
@@ -228,6 +283,11 @@ ${hcLink}
     </div>
   </div>
 
+  <div class="grp">
+    <div class="grp-label">规则资产</div>
+    <div class="rules" id="rules"></div>
+  </div>
+
   <div class="st" id="st"></div>
 </div>
 <script>${WIDGET_JS}</script>
@@ -253,12 +313,16 @@ ${hcLink}
     return c.json({ ok: true });
   });
 
+  app.get("/sidebar/rules", (c) => {
+    return c.json({ ok: true, rules: parseRules() });
+  });
+
   app.post("/sidebar/test", async (c) => {
     const va = ctx._va;
     if (!va) return c.json({ ok: false, error: "not ready" }, 503);
     let body = {};
     try { body = await c.req.json(); } catch {}
-    va.speak("你好，这是语音播报的测试朗读。Hello, this is a test.", body).then(() => {});
+    va.speak("你好，这是声律的测试朗读。Hello, this is a test.", body).then(() => {});
     return c.json({ ok: true });
   });
 }

@@ -1,10 +1,10 @@
 schemaVersion: 1
 id: voice-announcer
-name: 语音播报
+name: 声律
 publisher: statem-li
 author: statem-li
-version: 0.1.9
-description: 让 Hana 开口说话：回复自动朗读，晓晓音色，边生成边读。内置语音桥接即装即用，实时朗读、插话打断、卡片播报、11 种音色。
+version: 0.2.0
+description: 让 Hana 开口说话：回复自动朗读，晓晓音色，边生成边读。内置语音桥接即装即用，实时朗读、插话打断、卡片播报、11 种音色；侧边栏内置规则资产（中文思考 / 卡片收尾 / 命令执行优先级 / 临时文件规范），随 RULES.md 自动更新。
 license: Apache-2.0
 categories:
   - Productivity
@@ -38,7 +38,7 @@ contributions:
   - lifecycle
 distribution:
   kind: release
-  packageUrl: https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.1.8/voice-announcer-v0.1.9.zip
-  sha256: 3dc5ff568e3a31289b89df6632e2253b64d29407641416843d48f671363888ed
+  packageUrl: https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.2.0/voice-announcer-v0.2.0.zip
+  sha256: a75bf68e1bfc982be963f9add20613b3340b07d8238a0628d81955b7e1e9c2d2
 install:
   defaultEnabled: false

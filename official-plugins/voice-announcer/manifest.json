@@ -1,14 +1,14 @@
 {
   "id": "voice-announcer",
-  "name": "语音播报",
-  "version": "0.1.9",
+  "name": "声律",
+  "version": "0.2.0",
   "description": "Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；侧边栏可调开关/实时/音色/语速/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发。",
   "trust": "full-access",
   "minAppVersion": "0.82.0",
   "entry": "index.js",
   "contributes": {
     "widget": {
-      "title": { "zh": "播报", "en": "Voice" },
+      "title": { "zh": "声律", "en": "Voice" },
       "icon": "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='11 5 6 9 2 9 2 15 6 15 11 19 11 5'/><path d='M15.54 8.46a5 5 0 0 1 0 7.07'/><path d='M19.07 4.93a10 10 0 0 1 0 14.14'/></svg>",
       "route": "/sidebar"
     },
@@ -17,12 +17,14 @@
         "enabled": {
           "type": "boolean",
           "default": true,
-          "title": "自动播报开关"
+          "title": "自动播报开关",
+          "description": "Hana 回复完成后自动朗读。关闭后插件静默，不读任何内容。"
         },
         "streaming": {
           "type": "boolean",
           "default": false,
-          "title": "实时朗读（边生成边读）"
+          "title": "实时朗读（边生成边读）",
+          "description": "边生成边读，句子级流式；关闭则整篇回复完成后一次朗读。"
         },
         "voice": {
           "type": "string",
@@ -33,18 +35,21 @@
         "rate": {
           "type": "number",
           "default": 0,
-          "title": "语速（-10 慢 ~ 10 快）"
+          "title": "语速（-10 慢 ~ 10 快）",
+          "description": "正数加快、负数放慢，步进 1。例如 2 为稍快，-3 为稍慢，0 为正常。"
         },
         "maxLength": {
           "type": "number",
           "default": 500,
-          "title": "最长朗读字数"
+          "title": "最长朗读字数",
+          "description": "超过该字数截断不念，防止长文念不完（范围 50 ~ 5000）。"
         },
         "agents": {
           "type": "array",
           "default": ["hanako"],
           "items": { "type": "string" },
-          "title": "播报的 Agent（留空播报全部）"
+          "title": "播报的 Agent（留空播报全部）",
+          "description": "JSON 数组格式，如 [\"hanako\"]。留空 [] 则播报全部 Agent 的回复。"
         }
       }
     }

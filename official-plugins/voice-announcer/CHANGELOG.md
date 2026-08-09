@@ -1,5 +1,20 @@
 # 变更历史
 
+## Unreleased — 2026-08-09 · 规则资产
+
+- RULES.md 新增「命令执行优先级」规则：结构化工具 > Python 3.13 > cmd > pwsh 7（Kr 确认）
+- 特例声明：插件内部 TTS 桥接常驻 PowerShell 进程为既定实现，不受该规则约束
+- RULES.md 新增「中文思考规则」小节：与 chinese-thinking 插件注入指令同源同措辞，互为表里
+- 插件更名：语音播报 → 声律（显示名与侧边栏入口；id 保持 voice-announcer 不变）
+- RULES.md 新增「临时文件规范」小节：临时文件统一进工作区 _tmp/ 按类别存放（scripts / data / downloads / tests / misc），任务结束清理
+- manifest 配置项补全 description：每个设置项带说明文字（作用与取值范围），设置页显示更完整
+- 侧边栏新增「规则资产」区块：从 RULES.md 动态解析五条规则（新增 /sidebar/rules API），可折叠展开，单一来源随规则文件自动更新
+
+## v0.1.9 — 2026-08-08 · 主题同步
+
+- 侧边栏跟随 Hana 主题：加载宿主主题样式表（hana-css），深/浅色自动适配
+- 下拉展开列表深色适配（option/optgroup 主题色），深色主题下不再白底浅字
+
 ## v0.1.8 — 2026-08-08 · 朗读质量
 
 - 裸链接（https://...）、www 域名、邮箱朗读时直接跳过，不再逐字符念
