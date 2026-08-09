@@ -53,6 +53,53 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "xieyihui",
+      "name": "歇一会",
+      "publisher": "moononnn",
+      "author": "moononnn & 小花",
+      "version": "0.10.0",
+      "description": "温柔又执着的休息提醒助手。强制模式会用当前助手的性格和最近对话实时劝你休息，还会划走按钮、加时、记欠账、攒成就。",
+      "license": "MIT",
+      "categories": [
+        "效率"
+      ],
+      "keywords": [
+        "休息",
+        "提醒",
+        "摸鱼",
+        "健康"
+      ],
+      "homepage": "https://github.com/moononnn/xieyihui",
+      "repository": "https://github.com/moononnn/xieyihui",
+      "manifestUrl": "https://raw.githubusercontent.com/moononnn/xieyihui/main/manifest.json",
+      "readmeUrl": "https://raw.githubusercontent.com/moononnn/xieyihui/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.1.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "读取会话与助手信息（强制模式用助手性格与最近对话劝休息）",
+        "调用模型生成休息劝告",
+        "发起网络请求（允许所有主机）",
+        "写入插件自身数据（配置/成就/统计）",
+        "提供页面、工具与后端路由"
+      ],
+      "contributions": [
+        "tools",
+        "page",
+        "routes"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/moononnn/xieyihui/releases/download/v0.10.0/xieyihui-0.10.0-share.zip",
+        "sha256": "0ae64062a3af483709bb69c4e9231c20fc34527e7f329f76c95c50b4d28e2925"
+      },
+      "install": {
+        "defaultEnabled": true
+      }
     }
   ]
 }
