@@ -1,8 +1,8 @@
 {
   "id": "voice-announcer",
   "name": "声律",
-  "version": "0.2.0",
-  "description": "Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；侧边栏可调开关/实时/音色/语速/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发。",
+  "version": "0.2.2",
+  "description": "Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；只读总结（回复完成只念总结卡片）/ 一句话总结（AI 生成一句概括）；侧边栏可调开关/实时/只读总结/一句话/音色/语速/音量/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发。",
   "trust": "full-access",
   "minAppVersion": "0.82.0",
   "entry": "index.js",
@@ -19,6 +19,24 @@
           "default": true,
           "title": "自动播报开关",
           "description": "Hana 回复完成后自动朗读。关闭后插件静默，不读任何内容。"
+        },
+        "readSummaryOnly": {
+          "type": "boolean",
+          "default": false,
+          "title": "只读总结",
+          "description": "回复完成后只朗读 show_card 总结卡片，跳过正文（实时模式正文也不再流式朗读）。关闭则朗读全文与卡片。"
+        },
+        "summaryOneLiner": {
+          "type": "boolean",
+          "default": false,
+          "title": "一句话总结",
+          "description": "回复完成后用 AI 把回复压缩成一句话朗读（需要已配置工具模型，生成失败自动降级为只读总结/全文）。开启后正文与卡片不再直接朗读。"
+        },
+        "volume": {
+          "type": "number",
+          "default": 100,
+          "title": "音量（0-100）",
+          "description": "朗读音量，0 静音 ~ 100 最大，默认 100。"
         },
         "streaming": {
           "type": "boolean",

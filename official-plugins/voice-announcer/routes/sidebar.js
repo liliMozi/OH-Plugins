@@ -120,14 +120,19 @@ function render(d){
   var cfg = d.config || {};
   var enabled = cfg.enabled !== false;
   var streaming = cfg.streaming === true;
+  var readSummaryOnly = cfg.readSummaryOnly === true;
+  var oneLiner = cfg.summaryOneLiner === true;
   var voice = cfg.voice || "Microsoft Xiaoxiao Online";
   var rate = (typeof cfg.rate === "number") ? cfg.rate : 0;
+  var volume = (typeof cfg.volume === "number") ? cfg.volume : 100;
   var maxLen = cfg.maxLength || 500;
 
   $("sw").checked = enabled;
   $("swStream").checked = streaming;
+  $("swSummary").checked = readSummaryOnly;
+  $("swOne").checked = oneLiner;
   $("dot").className = "dot" + (enabled ? "" : " off");
-  $("badgeText").textContent = enabled ? (streaming ? "实时播报中" : "自动播报中") : "已暂停";
+  $("badgeText").textContent = !enabled ? "已暂停" : (oneLiner ? "一句话总结中" : (readSummaryOnly ? "只读总结中" : (streaming ? "实时播报中" : "自动播报中")));
 
   var groups = d.voiceGroups;
   if (groups) {
@@ -144,6 +149,8 @@ function render(d){
   }
   $("rate").value = rate;
   $("rateV").textContent = rate > 0 ? "+" + rate : String(rate);
+  $("volume").value = volume;
+  $("volumeV").textContent = String(volume);
   $("maxLen").value = maxLen;
 }
 
@@ -151,8 +158,11 @@ function collect(){
   return {
     enabled: $("sw").checked,
     streaming: $("swStream").checked,
+    readSummaryOnly: $("swSummary").checked,
+    summaryOneLiner: $("swOne").checked,
     voice: $("voice").value,
     rate: Number($("rate").value),
+    volume: Number($("volume").value),
     maxLength: Number($("maxLen").value) || 500
   };
 }
@@ -187,9 +197,13 @@ function doTest(){
 
 $("sw").addEventListener("change", save);
 $("swStream").addEventListener("change", save);
+$("swSummary").addEventListener("change", save);
+$("swOne").addEventListener("change", save);
 $("voice").addEventListener("change", save);
 $("rate").addEventListener("input", function(){ var v = Number($("rate").value); $("rateV").textContent = v > 0 ? "+" + v : String(v); });
 $("rate").addEventListener("change", save);
+$("volume").addEventListener("input", function(){ $("volumeV").textContent = String(Number($("volume").value)); });
+$("volume").addEventListener("change", save);
 $("maxLen").addEventListener("change", save);
 $("stopBtn").addEventListener("click", doStop);
 $("testBtn").addEventListener("click", doTest);
@@ -239,11 +253,19 @@ ${hcLink}
     <div class="badge"><span class="dot" id="dot"></span><span id="badgeText">自动播报中</span></div>
   </div>
 
-  <div class="grp">
+    <div class="grp">
     <div class="grp-label">开关</div>
     <div class="row">
-      <span class="row-t">回复完成后朗读</span>
+      <span class="row-t">回复完成后读总结</span>
       <label class="sw"><input type="checkbox" id="sw"><span class="sl"></span></label>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <span class="row-t">只读总结（不念正文）</span>
+      <label class="sw"><input type="checkbox" id="swSummary"><span class="sl"></span></label>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <span class="row-t">一句话总结（AI 生成）</span>
+      <label class="sw"><input type="checkbox" id="swOne"><span class="sl"></span></label>
     </div>
     <div class="row" style="margin-top:12px">
       <span class="row-t">实时朗读（边生成边读）</span>
@@ -266,6 +288,15 @@ ${hcLink}
       <span class="rate-v" id="rateV">-2</span>
     </div>
     <div class="rate-hint"><span>慢</span><span>快</span></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-label">音量</div>
+    <div class="row">
+      <input type="range" id="volume" min="0" max="100" step="1">
+      <span class="rate-v" id="volumeV">100</span>
+    </div>
+    <div class="rate-hint"><span>静音</span><span>最大</span></div>
   </div>
 
   <div class="grp">

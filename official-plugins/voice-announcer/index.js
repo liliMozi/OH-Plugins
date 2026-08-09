@@ -122,11 +122,12 @@ function splitLang(text) {
 
 /* ── 朗读 ── */
 
-export async function speak(text, { voice, rate = 0 } = {}) {
+export async function speak(text, { voice, rate = 0, volume = 100 } = {}) {
   const clean = cleanForSpeech(text);
   if (!clean) return true;
   const zhVoice = (voice || DEFAULT_VOICE).replace(/'/g, "''");
   const r = Math.max(-10, Math.min(10, Number(rate) || 0));
+  const vol = Math.max(0, Math.min(100, Number(volume) ?? 100));
   const enc = `[System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64(clean)}'))`;
 
   const cmds = [
@@ -134,6 +135,7 @@ export async function speak(text, { voice, rate = 0 } = {}) {
     "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer",
     `try { $s.SelectVoice('${zhVoice}') } catch { try { $s.SelectVoice('${FALLBACK_ZH}') } catch {} }`,
     `$s.Rate = ${r}`,
+    `$s.Volume = ${vol}`,
     `$s.Speak(${enc})`,
     `Write-Output '${DONE_MARK}'`
   ];
@@ -146,15 +148,17 @@ export async function speak(text, { voice, rate = 0 } = {}) {
 /* ── 流式实时朗读（SpeakAsync 队列，复用合成器对象） ── */
 
 // 异步追加朗读：立即返回，SAPI 内部队列连续播放；$s 跨命令复用，语音按名称比对保证正确
-async function speakChunk(text, { voice, rate = 0 } = {}) {
+async function speakChunk(text, { voice, rate = 0, volume = 100 } = {}) {
   const clean = cleanForSpeech(text);
   if (!clean) return true;
   const v = (voice || DEFAULT_VOICE).replace(/'/g, "''");
   const r = Math.max(-10, Math.min(10, Number(rate) || 0));
+  const vol = Math.max(0, Math.min(100, Number(volume) ?? 100));
   const cmds = [
     `$v = '${v}'`,
     `if ($null -eq $s -or $s.Voice.Name -ne $v) { Add-Type -AssemblyName System.Speech; $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; try { $s.SelectVoice($v) } catch { try { $s.SelectVoice('${FALLBACK_ZH}') } catch {} } }`,
     `$s.Rate = ${r}`,
+    `$s.Volume = ${vol}`,
     `$s.SpeakAsync([System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64(clean)}'))) | Out-Null`,
     `Write-Output '${DONE_MARK}'`
   ];
@@ -167,6 +171,28 @@ async function speakChunk(text, { voice, rate = 0 } = {}) {
 async function cancelSpeech() {
   if (!ps || ps.exitCode !== null) return true;
   return execPs(`if ($null -ne $s) { $s.SpeakAsyncCancelAll() }; Write-Output '${DONE_MARK}'`);
+}
+
+/* ── AI 一句话总结（model:sample-text，无依赖走 bus） ── */
+
+// 用工具模型把回复压成一句中文，失败返回空串（由调用方降级）
+async function summarizeOneLiner(ctx, sessionPath, content) {
+  const src = String(content || "").slice(0, 3000);
+  if (!src.trim()) return "";
+  try {
+    const resp = await ctx.bus.request("model:sample-text", {
+      operation: "voice-announcer-one-liner",
+      sessionPath: typeof sessionPath === "string" && sessionPath.trim() ? sessionPath.trim() : null,
+      systemPrompt: "你是回复摘要器。用一句自然、口语化的中文概括下面的内容要点，不超过 40 字，可直接朗读。只输出那一句话，不要解释、不要前缀、不要引号。",
+      messages: [{ role: "user", content: "内容：\n" + src }],
+      maxTokens: 80,
+      temperature: 0.3
+    }, { timeout: 20000 });
+    const t = resp && typeof resp.text === "string" ? resp.text.trim() : "";
+    return t && t.length <= 200 ? t : "";
+  } catch (e) {
+    return "";
+  }
 }
 
 /* ── 插件主逻辑 ── */
@@ -365,11 +391,14 @@ export default class VoiceAnnouncerPlugin {
         if (Array.isArray(agents) && agents.length > 0 && (!agentId || !agents.includes(agentId))) return;
         const enabled = config.get("enabled");
         if (enabled === false) return;
+        // 只读总结 / 一句话总结：正文一律不念（含实时流式），前者只念卡片，后者等 AI 生成一句
+        const readSummaryOnly = config.get("readSummaryOnly") === true;
+        const oneLiner = config.get("summaryOneLiner") === true;
 
         // 实时模式：流式增量 → 句子级朗读
         if (ev?.type === "message_update" && isStreaming()) {
           const ae = ev.assistantMessageEvent;
-          if (ae && ae.type === "text_delta" && typeof ae.delta === "string") {
+          if (!readSummaryOnly && !oneLiner && ae && ae.type === "text_delta" && typeof ae.delta === "string") {
             feedStream(ae.delta);
           }
           return;
@@ -397,25 +426,47 @@ export default class VoiceAnnouncerPlugin {
         const limited = text.length > maxLen ? text.slice(0, maxLen) + "……" : text;
         const voice = config.get("voice") || DEFAULT_VOICE;
         const rate = Number(config.get("rate") ?? 0) || 0;
+        const volume = Number(config.get("volume") ?? 100);
+
+        // AI 一句话总结：正文与卡片都不直接念，生成一句后朗读；失败降级
+        const enqueueOneLiner = () => {
+          const src = (text + "\n" + cardText).trim();
+          state.queue = state.queue
+            .then(() => summarizeOneLiner(this.ctx, ssp, src))
+            .then((summary) => {
+              if (summary) return speak(summary, { voice, rate, volume });
+              // 降级：有卡片念卡片，否则念正文（截断）
+              if (cardText) return speak(cardText, { voice, rate, volume });
+              if (text) return speak(limited, { voice, rate, volume });
+              return true;
+            })
+            .catch((e) => log.warn("[voice-announcer] one-liner failed:", e?.message));
+        };
 
         if (isStreaming()) {
           // 实时模式：合并尾巴 + 卡片收尾
           if (stream.timer) { clearTimeout(stream.timer); stream.timer = null; }
-          if (text) {
+          if (text && !readSummaryOnly && !oneLiner) {
             const tail = stream.buffer.trim();
             const pend = stream.pending.join("").trim();
             stream.buffer = "";
             stream.pending = [];
             const rest = (pend + tail).trim();
-            if (rest) state.queue = state.queue.then(() => speakChunk(rest, { voice, rate })).catch(() => {});
+            if (rest) state.queue = state.queue.then(() => speakChunk(rest, { voice, rate, volume })).catch(() => {});
           } else {
             stream.buffer = "";
             stream.pending = [];
           }
-          if (cardText) state.queue = state.queue.then(() => speakChunk(cardText, { voice, rate })).catch(() => {});
+          if (cardText && !oneLiner) state.queue = state.queue.then(() => speakChunk(cardText, { voice, rate, volume })).catch(() => {});
+          if (oneLiner) enqueueOneLiner();
+        } else if (oneLiner) {
+          enqueueOneLiner();
+        } else if (readSummaryOnly) {
+          // 只读总结：跳过正文，只念总结卡片
+          if (cardText) state.queue = state.queue.then(() => speak(cardText, { voice, rate, volume })).catch((e) => log.warn("[voice-announcer] speak failed:", e?.message));
         } else {
           state.queue = state.queue
-            .then(() => speak(limited, { voice, rate }))
+            .then(() => speak(limited, { voice, rate, volume }))
             .catch((e) => log.warn("[voice-announcer] speak failed:", e?.message));
         }
       } catch (e) {
@@ -436,13 +487,16 @@ export default class VoiceAnnouncerPlugin {
       getConfig: () => ({
         enabled: config.get("enabled") ?? true,
         streaming: config.get("streaming") === true,
+        readSummaryOnly: config.get("readSummaryOnly") === true,
+        summaryOneLiner: config.get("summaryOneLiner") === true,
         voice: config.get("voice") || DEFAULT_VOICE,
         rate: Number(config.get("rate") ?? 0) || 0,
+        volume: Number(config.get("volume") ?? 100),
         maxLength: Number(config.get("maxLength")) || 500
       }),
       save: async (patch) => {
         if (patch && typeof patch === "object") {
-          for (const k of ["enabled", "streaming", "voice", "rate", "maxLength"]) {
+          for (const k of ["enabled", "streaming", "readSummaryOnly", "summaryOneLiner", "voice", "rate", "volume", "maxLength"]) {
             if (k in patch && patch[k] !== undefined) await config.set(k, patch[k]);
           }
         }
