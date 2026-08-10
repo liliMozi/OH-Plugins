@@ -1,0 +1,46 @@
+schemaVersion: 1
+id: voice-announcer
+name: 声律
+publisher: statem-li
+author: statem-li
+version: 0.2.8
+description: Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；只读总结 / 一句话总结（AI 复盘或问答摘要，可自定义 prompt）；播报 Agent 白名单可视化增删、播报历史留痕；对话内选项卡片（≤3 横排、>3 竖列，点击自动回传会话）；侧边栏可调开关/实时/总结/音色/语速/音量/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发；v0.2.8 起规则注入并入插件自身（before_agent_start 注入 RULES.md 启用规则，替代 chinese-thinking 插件）。
+license: Apache-2.0
+categories:
+  - Productivity
+  - Accessibility
+keywords:
+  - tts
+  - voice
+  - speech
+  - read-aloud
+  - accessibility
+  - streaming
+homepage: https://github.com/statem-li/OH-Plugins
+repository: https://github.com/statem-li/OH-Plugins
+readmePath: official-plugins/voice-announcer/README.md
+source:
+  kind: official-source
+  path: official-plugins/voice-announcer
+compatibility:
+  minAppVersion: 0.82.0
+trust: full-access
+permissions:
+  - 订阅会话事件（message_end / message_update）以触发自动朗读
+  - 调用 Windows SAPI 5 语音合成（spawn PowerShell 子进程）
+  - 自动安装内置语音桥接组件（注册 DLL，UAC 确认一次）
+  - 读写插件私有数据目录（配置与语音适配器）
+  - 提供侧边栏 widget 与 HTTP 路由
+  - 注册 before_agent_start 扩展事件，向会话 system prompt 注入 RULES.md 启用规则（v0.2.8 起）
+contributions:
+  - routes
+  - widget
+  - configuration
+  - lifecycle
+  - extensions
+distribution:
+  kind: release
+  packageUrl: https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.2.8/voice-announcer-v0.2.8.zip
+  sha256: 54ed362507f6ea8a664c8bbb4d60d89534abc6edebb639cdbfc8176098d2e05e
+install:
+  defaultEnabled: false

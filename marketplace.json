@@ -53,6 +53,60 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "voice-announcer",
+      "name": "声律",
+      "publisher": "statem-li",
+      "author": "statem-li",
+      "version": "0.2.2",
+      "description": "让 Hana 开口说话：回复自动朗读，晓晓音色，边生成边读。内置语音桥接即装即用，实时朗读、插话打断、卡片播报、只读总结、AI 一句话总结、音量可调、11 种音色；侧边栏内置规则资产（中文思考 / 卡片收尾 / 命令执行优先级 / 临时文件规范），随 RULES.md 自动更新。",
+      "license": "Apache-2.0",
+      "categories": [
+        "Productivity",
+        "Accessibility"
+      ],
+      "keywords": [
+        "tts",
+        "voice",
+        "speech",
+        "read-aloud",
+        "accessibility",
+        "streaming"
+      ],
+      "homepage": "https://github.com/statem-li/OH-Plugins",
+      "repository": "https://github.com/statem-li/OH-Plugins",
+      "readmePath": "official-plugins/voice-announcer/README.md",
+      "source": {
+        "kind": "official-source",
+        "path": "official-plugins/voice-announcer"
+      },
+      "compatibility": {
+        "minAppVersion": "0.82.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "订阅会话事件（message_end / message_update）以触发自动朗读",
+        "调用 Windows SAPI 5 语音合成（spawn PowerShell 子进程）",
+        "自动安装内置语音桥接组件（注册 DLL，UAC 确认一次）",
+        "读写插件私有数据目录（配置与语音适配器）",
+        "提供侧边栏 widget 与 HTTP 路由"
+      ],
+      "contributions": [
+        "routes",
+        "widget",
+        "configuration",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/liliMozi/OH-Plugins/releases/download/voice-announcer-v0.2.2/voice-announcer-v0.2.2.zip",
+        "sha256": "27c3f59deca7ec641c5c72162e93a959fda03cdc9a7aff7fa5a4c1cd96276f8e"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
     }
   ]
 }
