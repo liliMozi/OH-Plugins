@@ -1,0 +1,44 @@
+schemaVersion: 1
+id: hank-knowledge
+name: 知识库 (Knowledge Base)
+publisher: zhang8019
+author: zhang8019
+version: 0.2.0
+description: 管理化材料库知识库插件。支持 file / directory / url / note 四种材料导入即快照，后台异步索引；默认 BM25 全文检索（中文 bigram + 英文），可配置 embedding 升级为向量 / 混合检索（RRF 融合），可配置 rerank 精排。默认对接硅基流动（BAAI/bge-m3 + bge-reranker-v2-m3），支持任意 OpenAI 兼容端点。中文管理界面。
+license: MIT
+categories:
+  - Knowledge
+  - Retrieval
+  - RAG
+keywords:
+  - knowledge-base
+  - rag
+  - bm25
+  - embedding
+  - rerank
+  - 知识库
+homepage: https://github.com/zhang8019/hank-knowledge
+repository: https://github.com/zhang8019/hank-knowledge
+readmeUrl: https://raw.githubusercontent.com/zhang8019/hank-knowledge/master/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.170.0
+trust: full-access
+permissions:
+  - 在插件数据目录读写知识库材料、索引与配置
+  - 调用用户配置的 embedding / rerank API 服务（默认硅基流动，可自备 Key）
+  - 提供 /page 与 /widget 管理界面路由
+contributions:
+  - tools
+  - configuration
+  - routes
+  - page
+  - widget
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/zhang8019/hank-knowledge/releases/download/v0.2.0/hank-knowledge.zip
+  sha256: ce19bddc68e6ec12a91866f4ec2448d21f1a063de35b8e2fb506ed810dd95edd
+install:
+  defaultEnabled: false
