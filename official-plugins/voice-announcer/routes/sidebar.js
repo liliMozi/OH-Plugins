@@ -44,6 +44,23 @@ function parseRules() {
   } catch { return []; }
 }
 
+function rulesStateFile(ctx) {
+  return path.join(ctx.dataDir, "rules-state.json");
+}
+function loadRulesState(ctx) {
+  try {
+    const raw = fs.readFileSync(rulesStateFile(ctx), "utf8");
+    const obj = JSON.parse(raw);
+    return obj && typeof obj === "object" ? obj : {};
+  } catch { return {}; }
+}
+function saveRulesState(ctx, state) {
+  try {
+    fs.mkdirSync(ctx.dataDir, { recursive: true });
+    fs.writeFileSync(rulesStateFile(ctx), JSON.stringify(state, null, 2), "utf8");
+  } catch {}
+}
+
 const WIDGET_CSS = `
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font-ui, system-ui, sans-serif); color: var(--text, #2A2622); background: transparent; }
@@ -92,10 +109,41 @@ input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 
 .btn.primary { border-color: var(--accent, #537D96); background: var(--accent, #537D96); color: #FFFDF7; }
 .btn.primary:hover { background: var(--accent-hover, #3F6179); }
 .st { font-size: 11px; color: var(--text-muted, #6B6158); min-height: 15px; line-height: 1.5; margin-top: 12px; text-align: center; letter-spacing: 0.04em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; }
+.tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; font-size: 11.5px; border-radius: 10px; background: var(--accent-light, rgba(83,125,150,.08)); color: var(--accent-hover, #3F6179); }
+.tag-x { cursor: pointer; opacity: .6; font-size: 12px; line-height: 1; }
+.tag-x:hover { opacity: 1; }
+.agent-add { display: flex; gap: 8px; }
+.agent-add input { flex: 1; border: 0.5px solid var(--border, #D8CFBE); border-radius: var(--radius-chat-card, 4px); background: transparent; color: var(--text, #2A2622); padding: 7px 10px; font-size: 12px; font-family: inherit; }
+.agent-add input:focus { outline: none; border-color: var(--accent, #537D96); }
+.btn.sm { flex: none; padding: 7px 12px; font-size: 12px; }
+.hint { font-size: 10.5px; color: var(--text-muted, #6B6158); margin-top: 7px; }
+.hist { display: flex; flex-direction: column; gap: 7px; }
+.hist-empty { font-size: 11.5px; color: var(--text-muted, #6B6158); padding: 4px 0; }
+.hist-item { border: 0.5px solid var(--border, #D8CFBE); border-radius: var(--radius-chat-card, 4px); padding: 8px 10px; }
+.hist-top { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+.hist-mode { font-size: 10.5px; padding: 1px 6px; border-radius: 8px; background: var(--accent-light, rgba(83,125,150,.08)); color: var(--accent-hover, #3F6179); }
+.hist-ts { font-size: 10.5px; color: var(--text-muted, #6B6158); }
+.hist-txt { font-size: 11.5px; color: var(--text-light, #4A433C); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rule-b textarea { width: 100%; min-height: 74px; border: 0.5px solid var(--border, #D8CFBE); border-radius: var(--radius-chat-card, 4px); background: transparent; color: var(--text, #2A2622); padding: 8px 10px; font-size: 11.5px; font-family: inherit; line-height: 1.6; resize: vertical; }
+.rule-b textarea:focus { outline: none; border-color: var(--accent, #537D96); }
+.prompt-btns { display: flex; gap: 8px; margin-top: 8px; }
+.prompt-btns .btn { padding: 6px 0; font-size: 11.5px; }
 .rules { display: flex; flex-direction: column; gap: 8px; }
 .rule { border: 0.5px solid var(--border, #D8CFBE); border-radius: var(--radius-chat-card, 4px); overflow: hidden; }
+.rule.off .rule-b { opacity: 0.45; }
 .rule-h { display: flex; align-items: center; gap: 7px; padding: 9px 11px; font-size: 12px; font-weight: 500; color: var(--text, #2A2622); cursor: pointer; user-select: none; letter-spacing: 0.03em; }
 .rule-h:hover { background: var(--accent-light, rgba(83,125,150,.08)); }
+.rule-h .rule-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rule-switch { width: 30px; height: 16px; border-radius: 8px; border: 0.5px solid var(--border, #D8CFBE); background: transparent; position: relative; cursor: pointer; flex: none; transition: background .15s, border-color .15s; }
+.rule-switch .knob { position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--text-muted, #6B6158); transition: left .15s, background .15s; }
+.rule-switch.on { background: var(--accent-light, rgba(83,125,150,.08)); border-color: var(--accent, #537D96); }
+.rule-switch.on .knob { left: 16px; background: var(--accent, #537D96); }
+.rule-custom { white-space: pre-wrap; }
+.rule-edit { display: none; margin-top: 8px; }
+.rule-edit.show { display: block; }
+.rule-actions { display: flex; gap: 8px; margin-top: 8px; }
+.rule-actions .btn { padding: 4px 0; font-size: 11.5px; }
 .arr { width: 11px; height: 11px; color: var(--text-muted, #6B6158); transition: transform .15s; flex: none; }
 .rule.open .arr { transform: rotate(90deg); }
 .rule-b { display: none; padding: 9px 13px 11px; border-top: 0.5px solid var(--border, #D8CFBE); font-size: 11.5px; color: var(--text-light, #4A433C); line-height: 1.65; }
@@ -134,6 +182,10 @@ function render(d){
   $("dot").className = "dot" + (enabled ? "" : " off");
   $("badgeText").textContent = !enabled ? "已暂停" : (oneLiner ? "一句话总结中" : (readSummaryOnly ? "只读总结中" : (streaming ? "实时播报中" : "自动播报中")));
 
+  renderAgents(cfg.agents);
+  renderHistory(d.history || []);
+  $("sumPrompt").value = cfg.summaryCustomPrompt || "";
+
   var groups = d.voiceGroups;
   if (groups) {
     var html = "";
@@ -152,6 +204,64 @@ function render(d){
   $("volume").value = volume;
   $("volumeV").textContent = String(volume);
   $("maxLen").value = maxLen;
+}
+
+function renderAgents(agents){
+  var list = Array.isArray(agents) ? agents : [];
+  var box = $("agentTags");
+  if (!box) return;
+  if (!list.length) {
+    box.innerHTML = '<span class="hist-empty">播报全部 Agent</span>';
+    return;
+  }
+  var html = "";
+  for (var i = 0; i < list.length; i++){
+    html += '<span class="tag">' + esc(list[i]) + '<span class="tag-x" data-a="' + esc(list[i]) + '">×</span></span>';
+  }
+  box.innerHTML = html;
+  var xs = box.querySelectorAll(".tag-x");
+  for (var j = 0; j < xs.length; j++){
+    xs[j].addEventListener("click", function(){
+      var cur = Array.isArray(loadAgents()) ? loadAgents() : [];
+      saveAgents(cur.filter(function(a){ return a !== this.getAttribute("data-a"); }.bind(this)));
+    });
+  }
+}
+
+function loadAgents(){
+  var tags = document.querySelectorAll("#agentTags .tag");
+  var out = [];
+  for (var i = 0; i < tags.length; i++){
+    var t = tags[i].childNodes[0];
+    if (t && t.nodeValue) out.push(t.nodeValue.trim());
+  }
+  return out;
+}
+
+function saveAgents(list){
+  fetch(base + "/sidebar/data" + q, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ agents: list }) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) { render(d); setSt("已保存"); } else setSt("保存失败"); })
+    .catch(function(){ setSt("保存失败"); });
+}
+
+function renderHistory(list){
+  var box = $("hist");
+  if (!box) return;
+  if (!list || !list.length) {
+    box.innerHTML = '<span class="hist-empty">还没有播报记录</span>';
+    return;
+  }
+  var MODES = { "full": "全文", "card": "卡片", "one-liner": "一句话", "streaming": "实时" };
+  var html = "";
+  for (var i = 0; i < list.length; i++){
+    var e = list[i];
+    var d = new Date(e.ts);
+    var pad = function(n){ return n < 10 ? "0" + n : String(n); };
+    var ts = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+    html += '<div class="hist-item"><div class="hist-top"><span class="hist-mode">' + (MODES[e.mode] || e.mode) + '</span><span class="hist-ts">' + ts + '</span></div><div class="hist-txt">' + esc(e.text) + '</div></div>';
+  }
+  box.innerHTML = html;
 }
 
 function collect(){
@@ -208,18 +318,129 @@ $("maxLen").addEventListener("change", save);
 $("stopBtn").addEventListener("click", doStop);
 $("testBtn").addEventListener("click", doTest);
 
+function addAgent(){
+  var v = $("agentInput").value.trim();
+  if (!v) return;
+  var cur = loadAgents();
+  if (cur.indexOf(v) >= 0) { $("agentInput").value = ""; return; }
+  cur.push(v);
+  saveAgents(cur);
+  $("agentInput").value = "";
+}
+$("agentAdd").addEventListener("click", addAgent);
+$("agentInput").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); addAgent(); } });
+
+$("histClear").addEventListener("click", function(){
+  fetch(base + "/sidebar/history/clear" + q, { method: "POST" })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) { renderHistory([]); setSt("历史已清空"); } })
+    .catch(function(){ setSt("清空失败"); });
+});
+
+$("promptSave").addEventListener("click", function(){
+  var v = $("sumPrompt").value;
+  fetch(base + "/sidebar/data" + q, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ summaryCustomPrompt: v }) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) { render(d); setSt("prompt 已保存"); } else setSt("保存失败"); })
+    .catch(function(){ setSt("保存失败"); });
+});
+$("promptReset").addEventListener("click", function(){
+  $("sumPrompt").value = "";
+  fetch(base + "/sidebar/data" + q, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ summaryCustomPrompt: "" }) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) { render(d); setSt("已恢复内置 prompt"); } else setSt("保存失败"); })
+    .catch(function(){ setSt("保存失败"); });
+});
+
 function renderRules(list){
   var html = "";
   for (var i = 0; i < list.length; i++){
     var r = list[i];
-    html += '<div class="rule"><div class="rule-h"><svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2l4 4-4 4"/></svg>' + esc(r.title) + '</div><div class="rule-b"><ul>';
-    for (var j = 0; j < r.points.length; j++){ html += '<li>' + esc(r.points[j]) + '</li>'; }
-    html += '</ul></div></div>';
+    var on = r.enabled !== false;
+    var custom = r.custom && r.custom.trim();
+    var defaultText = (r.points || []).map(function(p){ return "- " + p; }).join("\\n");
+    var bodyHtml = custom
+      ? '<div class="rule-custom">' + esc(custom) + '</div>'
+      : '<ul>' + r.points.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join("") + '</ul>';
+    html += '<div class="rule' + (on ? "" : " off") + '"><div class="rule-h"><svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2l4 4-4 4"/></svg><span class="rule-t">' + esc(r.title) + '</span><span class="rule-switch' + (on ? " on" : "") + '" data-title="' + esc(r.title) + '" role="switch" aria-checked="' + on + '" title="' + (on ? "点击关闭该规则" : "点击启用该规则") + '"><span class="knob"></span></span></div><div class="rule-b">'
+      + bodyHtml
+      + '<div class="rule-edit" data-title="' + esc(r.title) + '"><textarea>' + esc(custom || defaultText) + '</textarea><div class="prompt-btns"><div class="btn rule-edit-save">保存</div><div class="btn rule-edit-cancel">取消</div></div></div>'
+      + '<div class="rule-actions"><div class="btn sm rule-edit-btn">' + (custom ? "编辑" : "自定义") + '</div>'
+      + (custom ? '<div class="btn sm rule-edit-reset">恢复默认</div>' : '')
+      + '</div></div></div>';
   }
   $("rules").innerHTML = html;
   var hs = document.querySelectorAll(".rule-h");
   for (var k = 0; k < hs.length; k++){
-    hs[k].addEventListener("click", function(){ this.parentNode.classList.toggle("open"); });
+    hs[k].addEventListener("click", function(e){
+      if (e.target.closest && e.target.closest(".rule-switch")) return;
+      this.parentNode.classList.toggle("open");
+    });
+  }
+  var sws = document.querySelectorAll(".rule-switch");
+  for (var s = 0; s < sws.length; s++){
+    sws[s].addEventListener("click", function(){
+      var self = this;
+      var title = self.getAttribute("data-title");
+      var next = !self.classList.contains("on");
+      fetch(base + "/sidebar/rules/toggle" + q, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: title, enabled: next })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && d.ok) { loadRules(); }
+      }).catch(function(){});
+    });
+  }
+  var ebs = document.querySelectorAll(".rule-edit-btn");
+  for (var e = 0; e < ebs.length; e++){
+    ebs[e].addEventListener("click", function(){
+      var rule = this.closest(".rule");
+      var edit = rule.querySelector(".rule-edit");
+      edit.classList.toggle("show");
+      if (edit.classList.contains("show")) {
+        var ta = edit.querySelector("textarea");
+        ta.focus();
+        ta.setSelectionRange(ta.value.length, ta.value.length);
+      }
+    });
+  }
+  var svs = document.querySelectorAll(".rule-edit-save");
+  for (var v = 0; v < svs.length; v++){
+    svs[v].addEventListener("click", function(){
+      var rule = this.closest(".rule");
+      var edit = rule.querySelector(".rule-edit");
+      var title = edit.getAttribute("data-title");
+      var content = edit.querySelector("textarea").value;
+      fetch(base + "/sidebar/rules/custom" + q, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: title, content: content })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && d.ok) { loadRules(); }
+      }).catch(function(){});
+    });
+  }
+  var cvs = document.querySelectorAll(".rule-edit-cancel");
+  for (var c = 0; c < cvs.length; c++){
+    cvs[c].addEventListener("click", function(){
+      this.closest(".rule-edit").classList.remove("show");
+    });
+  }
+  var rss = document.querySelectorAll(".rule-edit-reset");
+  for (var z = 0; z < rss.length; z++){
+    rss[z].addEventListener("click", function(){
+      var rule = this.closest(".rule");
+      var edit = rule.querySelector(".rule-edit");
+      var title = edit.getAttribute("data-title");
+      fetch(base + "/sidebar/rules/custom" + q, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: title, content: "" })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && d.ok) { loadRules(); }
+      }).catch(function(){});
+    });
   }
 }
 
@@ -274,6 +495,16 @@ ${hcLink}
   </div>
 
   <div class="grp">
+    <div class="grp-label">播报 Agent</div>
+    <div class="tags" id="agentTags"></div>
+    <div class="agent-add">
+      <input type="text" id="agentInput" placeholder="agent id，回车添加">
+      <div class="btn sm" id="agentAdd">添加</div>
+    </div>
+    <div class="hint">留空播报全部 Agent</div>
+  </div>
+
+  <div class="grp">
     <div class="grp-label">音色</div>
     <div class="select-wrap">
       <select id="voice"></select>
@@ -315,6 +546,29 @@ ${hcLink}
   </div>
 
   <div class="grp">
+    <div class="grp-label">播报历史</div>
+    <div class="hist" id="hist"></div>
+    <div class="row" style="margin-top:10px">
+      <span class="hint" style="margin-top:0">最多保留 20 条</span>
+      <div class="btn sm" id="histClear">清空</div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-label">总结 prompt</div>
+    <div class="rule">
+      <div class="rule-h"><svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2l4 4-4 4"/></svg>自定义生成指令</div>
+      <div class="rule-b">
+        <textarea id="sumPrompt" placeholder="留空使用内置：问答→结论，工作→复盘"></textarea>
+        <div class="prompt-btns">
+          <div class="btn" id="promptSave">保存</div>
+          <div class="btn" id="promptReset">恢复默认</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grp">
     <div class="grp-label">规则资产</div>
     <div class="rules" id="rules"></div>
   </div>
@@ -327,7 +581,7 @@ ${hcLink}
 
   app.get("/sidebar/data", (c) => {
     const va = ctx._va;
-    return c.json({ ok: true, config: va ? va.getConfig() : {}, voiceGroups: VOICE_GROUPS });
+    return c.json({ ok: true, config: va ? va.getConfig() : {}, history: va ? va.history() : [], voiceGroups: VOICE_GROUPS });
   });
 
   app.post("/sidebar/data", async (c) => {
@@ -344,8 +598,62 @@ ${hcLink}
     return c.json({ ok: true });
   });
 
+  app.post("/sidebar/history/clear", (c) => {
+    ctx._va?.clearHistory();
+    return c.json({ ok: true });
+  });
+
   app.get("/sidebar/rules", (c) => {
-    return c.json({ ok: true, rules: parseRules() });
+    const state = loadRulesState(ctx);
+    const rules = parseRules().map((r) => {
+      const st = state[r.title];
+      return { ...r, enabled: !st || st.enabled !== false, custom: (st && typeof st.custom === "string") ? st.custom : null };
+    });
+    return c.json({ ok: true, rules });
+  });
+
+  app.post("/sidebar/rules/toggle", async (c) => {
+    let body = {};
+    try { body = await c.req.json(); } catch {}
+    const { title, enabled } = body || {};
+    if (typeof title !== "string" || !title.trim()) {
+      return c.json({ ok: false, error: "title required" }, 400);
+    }
+    const state = loadRulesState(ctx);
+    const prev = state[title.trim()];
+    state[title.trim()] = { enabled: !!enabled, custom: (prev && typeof prev.custom === "string") ? prev.custom : null };
+    saveRulesState(ctx, state);
+    return c.json({ ok: true, title: title.trim(), enabled: state[title.trim()].enabled });
+  });
+
+  app.post("/sidebar/rules/custom", async (c) => {
+    let body = {};
+    try { body = await c.req.json(); } catch {}
+    const { title, content } = body || {};
+    if (typeof title !== "string" || !title.trim()) {
+      return c.json({ ok: false, error: "title required" }, 400);
+    }
+    const state = loadRulesState(ctx);
+    const prev = state[title.trim()];
+    state[title.trim()] = {
+      enabled: !prev || prev.enabled !== false,
+      custom: (typeof content === "string" && content.trim()) ? content.trim() : null,
+    };
+    saveRulesState(ctx, state);
+    return c.json({ ok: true, title: title.trim(), custom: state[title.trim()].custom });
+  });
+
+  app.get("/sidebar/rules/active", (c) => {
+    const state = loadRulesState(ctx);
+    return c.json({
+      ok: true,
+      rules: parseRules()
+        .filter((r) => { const st = state[r.title]; return !st || st.enabled !== false; })
+        .map((r) => {
+          const st = state[r.title];
+          return { ...r, custom: (st && typeof st.custom === "string") ? st.custom : null };
+        }),
+    });
   });
 
   app.post("/sidebar/test", async (c) => {

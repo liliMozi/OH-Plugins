@@ -8,6 +8,13 @@ const EN_VOICE = "Microsoft AvaMultilingual Online";
 const FALLBACK_EN = "Microsoft Zira Desktop";
 const DONE_MARK = "<<<DONE_9f3a>>>";
 
+// 一句话总结默认指令：按内容形态自适应（问答→结论，工作→复盘）
+const DEFAULT_SUMMARY_PROMPT = "你是对话总结助手。根据下面的回复内容，用一句自然、口语化的中文总结（60 到 120 字，可直接朗读），按内容形态选择总结方式：如果回复是解答问题或闲聊，总结为：回答了什么问题、结论或关键信息是什么；如果回复是工作/任务过程，总结为：做了什么、为什么这么做、遇到什么错误或坑、思路发生了什么变化。只输出那一句话，不要解释、不要前缀、不要引号、不要编号、不要分点。";
+
+// 播报历史：内存环形 + 落盘（dataDir/history.json），最多 20 条
+const HISTORY_MAX = 20;
+const HISTORY_TEXT_MAX = 300;
+
 let ps = null;
 
 /* ── PowerShell 常驻进程（裸 REPL，stdin 逐行执行） ── */
@@ -15,44 +22,46 @@ let ps = null;
 function ensurePs() {
   return new Promise((resolve) => {
     if (ps && ps.exitCode === null) { resolve(true); return; }
-    ps = spawn("powershell.exe", ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass"], {
+    const proc = spawn("powershell.exe", ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass"], {
       windowsHide: true,
       stdio: ["pipe", "pipe", "pipe"]
     });
-    ps.stderr.on("data", () => {});
-    ps.on("error", () => { ps = null; resolve(false); });
-    ps.on("exit", () => { ps = null; });
-    ps.stdin.setDefaultEncoding("utf8");
+    ps = proc;
+    proc.stderr.on("data", () => {});
+    proc.on("error", () => { if (ps === proc) ps = null; resolve(false); });
+    proc.on("exit", () => { if (ps === proc) ps = null; });
+    proc.stdin.setDefaultEncoding("utf8");
     // 预热：加载 System.Speech，一次性成本提前付
     const warm = `Add-Type -AssemblyName System.Speech; Write-Output '${DONE_MARK}'`;
     const onData = (d) => {
       if (d.toString().includes(DONE_MARK)) {
-        ps.stdout.off("data", onData);
+        proc.stdout.off("data", onData);
         resolve(true);
       }
     };
-    ps.stdout.on("data", onData);
-    ps.stdin.write(warm + "\n");
+    proc.stdout.on("data", onData);
+    proc.stdin.write(warm + "\n");
   });
 }
 
 function execPs(cmd, timeoutMs = 120000) {
   return new Promise((resolve) => {
-    if (!ps || ps.exitCode !== null) { resolve(false); return; }
+    const proc = ps;
+    if (!proc || proc.exitCode !== null) { resolve(false); return; }
     let done = false;
     const onData = (d) => {
       if (!done && d.toString().includes(DONE_MARK)) { done = true; cleanup(); resolve(true); }
     };
     const onExit = () => { if (!done) { done = true; cleanup(); resolve(false); } };
     const cleanup = () => {
-      ps.stdout.off("data", onData);
-      ps.off("exit", onExit);
+      proc.stdout.off("data", onData);
+      proc.off("exit", onExit);
       clearTimeout(timer);
     };
     const timer = setTimeout(() => { if (!done) { done = true; cleanup(); resolve(false); } }, timeoutMs);
-    ps.stdout.on("data", onData);
-    ps.on("exit", onExit);
-    ps.stdin.write(cmd + "\n");
+    proc.stdout.on("data", onData);
+    proc.on("exit", onExit);
+    proc.stdin.write(cmd + "\n");
   });
 }
 
@@ -175,24 +184,61 @@ async function cancelSpeech() {
 
 /* ── AI 一句话总结（model:sample-text，无依赖走 bus） ── */
 
-// 用工具模型把回复压成一句中文，失败返回空串（由调用方降级）
-async function summarizeOneLiner(ctx, sessionPath, content) {
+// 用工具模型把回复总结成一句中文，失败返回空串（由调用方降级）
+async function summarizeOneLiner(ctx, sessionPath, content, customPrompt) {
   const src = String(content || "").slice(0, 3000);
   if (!src.trim()) return "";
+  const systemPrompt = (typeof customPrompt === "string" && customPrompt.trim())
+    ? customPrompt.trim()
+    : DEFAULT_SUMMARY_PROMPT;
   try {
     const resp = await ctx.bus.request("model:sample-text", {
       operation: "voice-announcer-one-liner",
       sessionPath: typeof sessionPath === "string" && sessionPath.trim() ? sessionPath.trim() : null,
-      systemPrompt: "你是回复摘要器。用一句自然、口语化的中文概括下面的内容要点，不超过 40 字，可直接朗读。只输出那一句话，不要解释、不要前缀、不要引号。",
+      systemPrompt,
       messages: [{ role: "user", content: "内容：\n" + src }],
-      maxTokens: 80,
-      temperature: 0.3
+      maxTokens: 300,
+      temperature: 0.4
     }, { timeout: 20000 });
     const t = resp && typeof resp.text === "string" ? resp.text.trim() : "";
-    return t && t.length <= 200 ? t : "";
+    return t && t.length <= 300 ? t : "";
   } catch (e) {
     return "";
   }
+}
+
+/* ── 播报历史（内存 + dataDir 落盘） ── */
+
+function loadHistory(dataDir) {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "history.json"), "utf8");
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.slice(0, HISTORY_MAX) : [];
+  } catch { return []; }
+}
+
+function createHistoryStore(dataDir) {
+  let items = loadHistory(dataDir);
+  return {
+    // 追加一条（最新在前），异步落盘不阻塞播报队列
+    push(entry) {
+      const e = {
+        ts: Date.now(),
+        mode: String(entry.mode || "full"),
+        text: String(entry.text || "").slice(0, HISTORY_TEXT_MAX)
+      };
+      items = [e, ...items].slice(0, HISTORY_MAX);
+      try {
+        fs.mkdirSync(dataDir, { recursive: true });
+        fs.writeFileSync(path.join(dataDir, "history.json"), JSON.stringify(items, null, 2));
+      } catch { /* 历史落盘失败不影响朗读 */ }
+    },
+    list() { return items; },
+    clear() {
+      items = [];
+      try { fs.writeFileSync(path.join(dataDir, "history.json"), "[]"); } catch {}
+    }
+  };
 }
 
 /* ── 插件主逻辑 ── */
@@ -378,6 +424,9 @@ export default class VoiceAnnouncerPlugin {
       log.info("[voice-announcer] dependency status: " + st);
     });
 
+    // 播报历史（内存 + 落盘）
+    const history = createHistoryStore(this.ctx.dataDir);
+
     const unsub = bus.subscribe((ev, ssp) => {
       try {
         // 用户一开口（插话 / 新建会话）：唯一停止信号，工具链内部 turn 不打断
@@ -431,13 +480,23 @@ export default class VoiceAnnouncerPlugin {
         // AI 一句话总结：正文与卡片都不直接念，生成一句后朗读；失败降级
         const enqueueOneLiner = () => {
           const src = (text + "\n" + cardText).trim();
+          const customPrompt = config.get("summaryCustomPrompt");
           state.queue = state.queue
-            .then(() => summarizeOneLiner(this.ctx, ssp, src))
+            .then(() => summarizeOneLiner(this.ctx, ssp, src, customPrompt))
             .then((summary) => {
-              if (summary) return speak(summary, { voice, rate, volume });
+              if (summary) {
+                history.push({ mode: "one-liner", text: summary });
+                return speak(summary, { voice, rate, volume });
+              }
               // 降级：有卡片念卡片，否则念正文（截断）
-              if (cardText) return speak(cardText, { voice, rate, volume });
-              if (text) return speak(limited, { voice, rate, volume });
+              if (cardText) {
+                history.push({ mode: "card", text: cardText });
+                return speak(cardText, { voice, rate, volume });
+              }
+              if (text) {
+                history.push({ mode: "full", text: limited });
+                return speak(limited, { voice, rate, volume });
+              }
               return true;
             })
             .catch((e) => log.warn("[voice-announcer] one-liner failed:", e?.message));
@@ -459,12 +518,18 @@ export default class VoiceAnnouncerPlugin {
           }
           if (cardText && !oneLiner) state.queue = state.queue.then(() => speakChunk(cardText, { voice, rate, volume })).catch(() => {});
           if (oneLiner) enqueueOneLiner();
+          // 历史：实时模式记录一条总览
+          history.push({ mode: "streaming", text: (text + (cardText ? "\n" + cardText : "")).trim() });
         } else if (oneLiner) {
           enqueueOneLiner();
         } else if (readSummaryOnly) {
           // 只读总结：跳过正文，只念总结卡片
-          if (cardText) state.queue = state.queue.then(() => speak(cardText, { voice, rate, volume })).catch((e) => log.warn("[voice-announcer] speak failed:", e?.message));
+          if (cardText) {
+            history.push({ mode: "card", text: cardText });
+            state.queue = state.queue.then(() => speak(cardText, { voice, rate, volume })).catch((e) => log.warn("[voice-announcer] speak failed:", e?.message));
+          }
         } else {
+          history.push({ mode: "full", text: limited });
           state.queue = state.queue
             .then(() => speak(limited, { voice, rate, volume }))
             .catch((e) => log.warn("[voice-announcer] speak failed:", e?.message));
@@ -489,18 +554,22 @@ export default class VoiceAnnouncerPlugin {
         streaming: config.get("streaming") === true,
         readSummaryOnly: config.get("readSummaryOnly") === true,
         summaryOneLiner: config.get("summaryOneLiner") === true,
+        summaryCustomPrompt: config.get("summaryCustomPrompt") || "",
         voice: config.get("voice") || DEFAULT_VOICE,
         rate: Number(config.get("rate") ?? 0) || 0,
         volume: Number(config.get("volume") ?? 100),
-        maxLength: Number(config.get("maxLength")) || 500
+        maxLength: Number(config.get("maxLength")) || 500,
+        agents: Array.isArray(config.get("agents")) ? config.get("agents") : []
       }),
       save: async (patch) => {
         if (patch && typeof patch === "object") {
-          for (const k of ["enabled", "streaming", "readSummaryOnly", "summaryOneLiner", "voice", "rate", "volume", "maxLength"]) {
+          for (const k of ["enabled", "streaming", "readSummaryOnly", "summaryOneLiner", "summaryCustomPrompt", "voice", "rate", "volume", "maxLength", "agents"]) {
             if (k in patch && patch[k] !== undefined) await config.set(k, patch[k]);
           }
         }
-      }
+      },
+      history: () => history.list(),
+      clearHistory: () => history.clear()
     };
     log.info("[voice-announcer] loaded (voice: " + (config.get("voice") || DEFAULT_VOICE) + ", streaming: " + isStreaming() + ")");
   }

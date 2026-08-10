@@ -1,14 +1,20 @@
 {
   "id": "voice-announcer",
   "name": "声律",
-  "version": "0.2.2",
-  "description": "Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；只读总结（回复完成只念总结卡片）/ 一句话总结（AI 生成一句概括）；侧边栏可调开关/实时/只读总结/一句话/音色/语速/音量/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发。",
+  "version": "0.2.8",
+  "description": "Hana 回复自动朗读：正文 + show_card 卡片内容，中英混读（晓晓统一音色）、markdown 清洗、常驻进程低延迟、插话/新建会话立即停播；实时朗读（边生成边读，句子级流式）；只读总结 / 一句话总结（AI 复盘或问答摘要，可自定义 prompt）；播报 Agent 白名单可视化增删、播报历史留痕；对话内选项卡片（≤3 横排、>3 竖列，点击自动回传会话）；侧边栏可调开关/实时/总结/音色/语速/音量/长度，跟随 Hana 主题（深色自动适配）；内置 Edge 语音桥接适配器，安装插件后自动检测并安装（UAC 一次），开箱即用可分发。",
   "trust": "full-access",
+  "capabilities": [
+    "session.write"
+  ],
   "minAppVersion": "0.82.0",
   "entry": "index.js",
   "contributes": {
     "widget": {
-      "title": { "zh": "声律", "en": "Voice" },
+      "title": {
+        "zh": "声律",
+        "en": "Voice"
+      },
       "icon": "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='11 5 6 9 2 9 2 15 6 15 11 19 11 5'/><path d='M15.54 8.46a5 5 0 0 1 0 7.07'/><path d='M19.07 4.93a10 10 0 0 1 0 14.14'/></svg>",
       "route": "/sidebar"
     },
@@ -30,7 +36,13 @@
           "type": "boolean",
           "default": false,
           "title": "一句话总结",
-          "description": "回复完成后用 AI 把回复压缩成一句话朗读（需要已配置工具模型，生成失败自动降级为只读总结/全文）。开启后正文与卡片不再直接朗读。"
+          "description": "回复完成后用 AI 把回复总结成一句话朗读（需要已配置工具模型，生成失败自动降级为只读总结/全文）。开启后正文与卡片不再直接朗读。"
+        },
+        "summaryCustomPrompt": {
+          "type": "string",
+          "default": "",
+          "title": "自定义总结 prompt",
+          "description": "一句话总结的自定义生成指令。留空使用内置双形态（问答→结论，工作→复盘）；填写后完全覆盖内置指令。"
         },
         "volume": {
           "type": "number",
@@ -64,8 +76,12 @@
         },
         "agents": {
           "type": "array",
-          "default": ["hanako"],
-          "items": { "type": "string" },
+          "default": [
+            "hanako"
+          ],
+          "items": {
+            "type": "string"
+          },
           "title": "播报的 Agent（留空播报全部）",
           "description": "JSON 数组格式，如 [\"hanako\"]。留空 [] 则播报全部 Agent 的回复。"
         }
