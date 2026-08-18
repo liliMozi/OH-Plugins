@@ -35,6 +35,6 @@ contributions:
 distribution:
   kind: release
   packageUrl: https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.11/openmontage-studio-v0.4.11.zip
-  sha256: d9fa6c914d6af5c6bfc502db8b2f067f78eb91bddda9f7c869b19f85cc0679e7
+  sha256: f9b062aca469fe12fe985a298375d7cc590552055bd386648bec9e8e0d532661
 install:
   defaultEnabled: false
