@@ -53,6 +53,68 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "openmontage-studio",
+      "name": "OpenMontage Studio",
+      "publisher": "X-J-S-C",
+      "author": "X-J-S-C",
+      "version": "0.4.12",
+      "description": "视频全流程流水线工作台：编导制三工位同屏协作，管线驱动的工序状态机、工件库与两级验收门（含角色鉴权），一键投递桌面端工作台预览。",
+      "license": "MIT",
+      "categories": [
+        "Video",
+        "Productivity"
+      ],
+      "keywords": [
+        "video",
+        "pipeline",
+        "studio",
+        "workflow",
+        "视频"
+      ],
+      "homepage": "https://github.com/X-J-S-C/openmontage-studio",
+      "repository": "https://github.com/X-J-S-C/openmontage-studio",
+      "readmeUrl": "https://raw.githubusercontent.com/X-J-S-C/openmontage-studio/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.171.3"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "创建插件私有的 plugin_private 工位会话与 Agent（agent:create）",
+        "读写自身 dataDir 与用户授权的项目工作台目录（resource.read/write）",
+        "通过宿主能力打开系统文件夹选择器与本地文件预览（resource.pick/open）"
+      ],
+      "contributions": [
+        "tools",
+        "routes",
+        "page",
+        "widget",
+        "configuration",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip",
+        "sha256": "a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23"
+      },
+      "versions": [
+        {
+          "version": "0.4.12",
+          "compatibility": {
+            "minAppVersion": "0.171.3"
+          },
+          "distribution": {
+            "kind": "release",
+            "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip",
+            "sha256": "a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23"
+          }
+        }
+      ],
+      "install": {
+        "defaultEnabled": false
+      }
     }
   ]
 }
