@@ -1,11 +1,14 @@
-# OpenMontage Studio — OH-Plugins 市场条目
+# OpenMontage Studio — OH-Plugins 市场条目 (v0.4.12)
+# 提交位置：github.com/liliMozi/OH-Plugins → plugins/openmontage-studio.yaml
+# 校验：OH-Plugins 仓库根目录运行 npm run check
+# 注：本条目为市场提交草稿，不随插件 release zip 打包。
 schemaVersion: 1
 id: openmontage-studio
 name: OpenMontage Studio
 publisher: X-J-S-C
 author: X-J-S-C
-version: 0.4.11
-description: 视频全流程流水线工作台：编导制三工位同屏，pipeline 驱动的工序状态机、工件库、执行面板，一键投递桌面端工作台预览。
+version: 0.4.12
+description: 视频全流程流水线工作台：编导制三工位同屏协作，管线驱动的工序状态机、工件库与两级验收门（含角色鉴权），一键投递桌面端工作台预览。
 license: MIT
 categories:
   - Video
@@ -15,6 +18,7 @@ keywords:
   - pipeline
   - studio
   - workflow
+  - 视频
 homepage: https://github.com/X-J-S-C/openmontage-studio
 repository: https://github.com/X-J-S-C/openmontage-studio
 readmeUrl: https://raw.githubusercontent.com/X-J-S-C/openmontage-studio/main/README.md
@@ -34,7 +38,15 @@ contributions:
   - lifecycle
 distribution:
   kind: release
-  packageUrl: https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.11/openmontage-studio-v0.4.11.zip
-  sha256: f9b062aca469fe12fe985a298375d7cc590552055bd386648bec9e8e0d532661
+  packageUrl: https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip
+  sha256: a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23
+versions:
+  - version: 0.4.12
+    compatibility:
+      minAppVersion: 0.171.3
+    distribution:
+      kind: release
+      packageUrl: https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip
+      sha256: a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23
 install:
   defaultEnabled: false

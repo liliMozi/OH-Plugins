@@ -60,8 +60,8 @@
       "name": "OpenMontage Studio",
       "publisher": "X-J-S-C",
       "author": "X-J-S-C",
-      "version": "0.4.11",
-      "description": "视频全流程流水线工作台：编导制三工位同屏，pipeline 驱动的工序状态机、工件库、执行面板，一键投递桌面端工作台预览。",
+      "version": "0.4.12",
+      "description": "视频全流程流水线工作台：编导制三工位同屏协作，管线驱动的工序状态机、工件库与两级验收门（含角色鉴权），一键投递桌面端工作台预览。",
       "license": "MIT",
       "categories": [
         "Video",
@@ -71,7 +71,8 @@
         "video",
         "pipeline",
         "studio",
-        "workflow"
+        "workflow",
+        "视频"
       ],
       "homepage": "https://github.com/X-J-S-C/openmontage-studio",
       "repository": "https://github.com/X-J-S-C/openmontage-studio",
@@ -95,9 +96,22 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.11/openmontage-studio-v0.4.11.zip",
-        "sha256": "d9fa6c914d6af5c6bfc502db8b2f067f78eb91bddda9f7c869b19f85cc0679e7"
+        "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip",
+        "sha256": "a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23"
       },
+      "versions": [
+        {
+          "version": "0.4.12",
+          "compatibility": {
+            "minAppVersion": "0.171.3"
+          },
+          "distribution": {
+            "kind": "release",
+            "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.12/openmontage-studio-v0.4.12.zip",
+            "sha256": "a443b45ecb30cdca190354ead1b48e31d18b92dd546b11e475f22b76163fcd23"
+          }
+        }
+      ],
       "install": {
         "defaultEnabled": false
       }
