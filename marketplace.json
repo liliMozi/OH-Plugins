@@ -53,6 +53,54 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "openmontage-studio",
+      "name": "OpenMontage Studio",
+      "publisher": "X-J-S-C",
+      "author": "X-J-S-C",
+      "version": "0.4.11",
+      "description": "视频全流程流水线工作台：编导制三工位同屏，pipeline 驱动的工序状态机、工件库、执行面板，一键投递桌面端工作台预览。",
+      "license": "MIT",
+      "categories": [
+        "Video",
+        "Productivity"
+      ],
+      "keywords": [
+        "video",
+        "pipeline",
+        "studio",
+        "workflow"
+      ],
+      "homepage": "https://github.com/X-J-S-C/openmontage-studio",
+      "repository": "https://github.com/X-J-S-C/openmontage-studio",
+      "readmeUrl": "https://raw.githubusercontent.com/X-J-S-C/openmontage-studio/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.171.3"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "创建插件私有的 plugin_private 工位会话与 Agent（agent:create）",
+        "读写自身 dataDir 与用户授权的项目工作台目录（resource.read/write）",
+        "通过宿主能力打开系统文件夹选择器与本地文件预览（resource.pick/open）"
+      ],
+      "contributions": [
+        "tools",
+        "routes",
+        "page",
+        "widget",
+        "configuration",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/X-J-S-C/openmontage-studio/releases/download/v0.4.11/openmontage-studio-v0.4.11.zip",
+        "sha256": "d9fa6c914d6af5c6bfc502db8b2f067f78eb91bddda9f7c869b19f85cc0679e7"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
     }
   ]
 }
