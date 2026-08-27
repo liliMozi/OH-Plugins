@@ -4,7 +4,7 @@ name: Token Dashboard
 publisher: XUX-XUX
 author: XUX-XUX
 version: 1.0.0
-description: Real-time LLM usage dashboard widget for HanaAgent: session analysis, live round status, calendar heatmap (week/month/year), history overview and model breakdown. Local data only, zero network.
+description: "Real-time LLM usage dashboard widget for HanaAgent: session analysis, live round status, calendar heatmap (week/month/year), history overview and model breakdown. Local data only, zero network."
 license: MIT
 categories:
   - Productivity
