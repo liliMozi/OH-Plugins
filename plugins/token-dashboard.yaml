@@ -1,0 +1,40 @@
+schemaVersion: 1
+id: token-dashboard
+name: Token Dashboard
+publisher: XUX-XUX
+author: XUX-XUX
+version: 1.0.1
+description: "Real-time LLM usage dashboard widget for HanaAgent: session analysis, live round status, calendar heatmap (week/month/year), history overview and model breakdown. Local data only, zero network."
+license: MIT
+categories:
+  - Productivity
+keywords:
+  - tokens
+  - usage
+  - dashboard
+  - widget
+  - monitoring
+homepage: https://github.com/XUX-XUX/token-dashboard
+repository: https://github.com/XUX-XUX/token-dashboard
+manifestUrl: https://raw.githubusercontent.com/XUX-XUX/token-dashboard/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/XUX-XUX/token-dashboard/main/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.450.0
+trust: full-access
+permissions:
+  - Reads the local usage ledger (usage.read)
+  - Reads session JSONL files from the local agent data directory
+contributions:
+  - widget
+distribution:
+  kind: release
+  packageUrl: https://github.com/XUX-XUX/token-dashboard/releases/download/v1.0.1/token-dashboard-v1.0.1.zip
+  sha256: 52a7db4213bbd728ef7ff48ef9769e72ea50df657f62326e45ab25f5ff121c60
+install:
+  defaultEnabled: false
+screenshots:
+  - https://raw.githubusercontent.com/XUX-XUX/token-dashboard/main/docs/shot-app-month.jpg
+  - https://raw.githubusercontent.com/XUX-XUX/token-dashboard/main/docs/shot-app-week.png
+  - https://raw.githubusercontent.com/XUX-XUX/token-dashboard/main/docs/shot-app-year.png
