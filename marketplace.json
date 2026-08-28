@@ -60,7 +60,7 @@
       "name": "Token Dashboard",
       "publisher": "XUX-XUX",
       "author": "XUX-XUX",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Real-time LLM usage dashboard widget for HanaAgent: session analysis, live round status, calendar heatmap (week/month/year), history overview and model breakdown. Local data only, zero network.",
       "license": "MIT",
       "categories": [
@@ -93,8 +93,8 @@
       ],
       "distribution": {
         "kind": "release",
-        "packageUrl": "https://github.com/XUX-XUX/token-dashboard/releases/download/v1.0.0/token-dashboard-v1.0.0.zip",
-        "sha256": "87d5a9fd4c7c4aaf3114a174c72b63067dacf4066396c8a5240201099d0df443"
+        "packageUrl": "https://github.com/XUX-XUX/token-dashboard/releases/download/v1.0.1/token-dashboard-v1.0.1.zip",
+        "sha256": "52a7db4213bbd728ef7ff48ef9769e72ea50df657f62326e45ab25f5ff121c60"
       },
       "install": {
         "defaultEnabled": false
