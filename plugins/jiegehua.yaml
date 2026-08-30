@@ -1,0 +1,38 @@
+schemaVersion: 1
+id: jiegehua
+name: 解语花
+publisher: moononnn
+author: moononnn & 小花
+version: 1.0.64
+description: AI 回复完之后，帮你生成几条推荐回复，点一下就能接上话。可选回复卡片或桌面解语花悬浮球（一朵会接话的樱花）。
+license: MIT
+categories:
+  - 效率
+keywords:
+  - 回复
+  - 推荐
+  - 聊天
+  - 解语花
+homepage: https://github.com/moononnn/hanako-jieyuhua
+repository: https://github.com/moononnn/hanako-jieyuhua
+manifestUrl: https://raw.githubusercontent.com/moononnn/hanako-jieyuhua/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/moononnn/hanako-jieyuhua/main/README.md
+compatibility:
+  minAppVersion: 0.159.0
+trust: full-access
+permissions:
+  - 读取会话上下文并调用模型生成推荐回复
+  - 发起网络请求（允许所有主机）
+  - 写入插件自身数据（配置）
+  - 提供页面、工具、路由与扩展
+contributions:
+  - tools
+  - page
+  - routes
+  - extensions
+distribution:
+  kind: release
+  packageUrl: https://github.com/moononnn/hanako-jieyuhua/releases/download/v1.0.64/jiegehua-v1.0.64.zip
+  sha256: 1b067f6ad0cbf7dd903e8e3b3f96ce6780b43119edcf5ef72072c1ce180b33a8
+install:
+  defaultEnabled: true
