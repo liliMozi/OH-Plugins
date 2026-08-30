@@ -3,6 +3,54 @@
   "plugins": [
     {
       "schemaVersion": 1,
+      "id": "biaoqingbao",
+      "name": "表情包",
+      "publisher": "moononnn",
+      "author": "moononnn & 小花",
+      "version": "0.34.0",
+      "description": "让助手在回复中根据语境自然使用表情包。支持批量导入、AI 识图打标签（含动图）、语义检索与偏好记忆；纸飞机悬浮球随时取用，配图手帐记录反馈；「学我说话」可让不同助手模仿你的说话习惯。",
+      "license": "MIT",
+      "categories": [
+        "聊天"
+      ],
+      "keywords": [
+        "表情包",
+        "贴图",
+        "方言",
+        "识图"
+      ],
+      "homepage": "https://github.com/moononnn/hanako-biaoqingbao",
+      "repository": "https://github.com/moononnn/hanako-biaoqingbao",
+      "manifestUrl": "https://raw.githubusercontent.com/moononnn/hanako-biaoqingbao/main/manifest.json",
+      "readmeUrl": "https://raw.githubusercontent.com/moononnn/hanako-biaoqingbao/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.1.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "读取会话上下文并调用模型识图/配图",
+        "可选：开启方言功能时写入对应助手的人格文件（默认关闭，需手动开启）",
+        "发起网络请求（允许所有主机）",
+        "读写插件自身数据（图库/标签/偏好）",
+        "提供页面、工具、路由与扩展"
+      ],
+      "contributions": [
+        "tools",
+        "page",
+        "routes",
+        "extensions"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/moononnn/hanako-biaoqingbao/releases/download/v0.34.0/biaoqingbao-v0.34.0.zip",
+        "sha256": "81a740ae97aae7d73645954969680550a8ad5785acd4fb3cf59fdc0a76e315a8"
+      },
+      "install": {
+        "defaultEnabled": true
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "hanako-hyperframes",
       "name": "HyperFrames Adapter for Hanako",
       "publisher": "OpenHanako",
