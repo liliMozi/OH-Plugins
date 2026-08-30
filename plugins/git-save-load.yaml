@@ -1,0 +1,38 @@
+schemaVersion: 1
+id: git-save-load
+name: Git Save/Load
+publisher: H-i-m-s
+author: H-i-m-s
+version: 2.3.2
+description: HanaAgent 的 git 版本管理插件：一键存档与版本号、任意回滚、分支画布、推送拉取与分叉保护、GitHub 仓库管理，支持经典界面侧栏与顶部标签。
+license: MIT
+categories:
+  - Developer Tools
+keywords:
+  - git
+  - version-control
+  - backup
+  - github
+homepage: https://github.com/H-i-m-s/git-save-load
+repository: https://github.com/H-i-m-s/git-save-load
+readmeUrl: https://raw.githubusercontent.com/H-i-m-s/git-save-load/master/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 0.159.0
+trust: full-access
+permissions:
+  - 对用户指定的本地 git 仓库执行读写与远程同步（fetch / push / pull）
+  - 调用 gh CLI 读取 GitHub 仓库列表与创建远程仓库
+contributions:
+  - tools
+  - routes
+  - configuration
+  - cards
+  - widget
+distribution:
+  kind: release
+  packageUrl: https://github.com/H-i-m-s/git-save-load/releases/download/v2.3.2/git-save-load-v2.3.2.zip
+  sha256: 56cbdd45e9d641cbbd42c4c5ef0ec7b7e6b5d74ac8adafd498baf040184f6128
+install:
+  defaultEnabled: false
