@@ -1,0 +1,37 @@
+schemaVersion: 1
+id: tigexing
+name: 提个醒
+publisher: moononnn
+author: moononnn & 小花
+version: 0.4.16
+description: 替小花记住发弹窗的小喇叭。回复完成自动弹 Windows 通知，同窗口多条合并、跨窗口分开提醒，带静默时段和按助手个性化的音效与通知风格。
+license: MIT
+categories:
+  - 效率
+keywords:
+  - 提醒
+  - 通知
+  - 弹窗
+  - 音效
+homepage: https://github.com/moononnn/Hanako-tigexing
+repository: https://github.com/moononnn/Hanako-tigexing
+manifestUrl: https://raw.githubusercontent.com/moononnn/Hanako-tigexing/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/moononnn/Hanako-tigexing/main/README.md
+compatibility:
+  minAppVersion: 0.1.0
+trust: full-access
+permissions:
+  - 弹 Windows 桌面通知
+  - 读写插件自身配置（静默时段、通知风格、音效）
+  - 发起网络请求（允许所有主机）
+  - 提供页面、工具与路由
+contributions:
+  - tools
+  - page
+  - routes
+distribution:
+  kind: release
+  packageUrl: https://github.com/moononnn/Hanako-tigexing/releases/download/v0.4.16/hanako-tigexing-0.4.16.zip
+  sha256: 8d6ed68d495a3d70562af1c5ffc134625c8ff163b3e7b370933d6c67a18684a4
+install:
+  defaultEnabled: true
