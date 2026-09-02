@@ -1,0 +1,40 @@
+schemaVersion: 1
+id: shiguangji
+name: 拾光记
+publisher: moononnn
+author: moononnn & 小花
+version: 0.2.54
+description: 日子账本：情境注入引擎 + 日历 + 节假日/纪念日/待办 + 每日做册。让每个助手都知道今天是什么日子。
+license: PolyForm-Noncommercial-1.0.0
+categories:
+  - 效率
+keywords:
+  - 日历
+  - 纪念日
+  - 待办
+  - 节假日
+  - 时光册
+  - 日子账本
+homepage: https://github.com/moononnn/hanako-shiguangji
+repository: https://github.com/moononnn/hanako-shiguangji
+manifestUrl: https://raw.githubusercontent.com/moononnn/hanako-shiguangji/main/manifest.json
+readmeUrl: https://raw.githubusercontent.com/moononnn/hanako-shiguangji/main/README.md
+compatibility:
+  minAppVersion: 0.421.0
+trust: full-access
+permissions:
+  - 读写插件自身数据（日子、纪念日、待办、时光册）
+  - 读取会话上下文并按情境注入今日信息
+  - 发起网络请求（天气与允许的主机）
+  - 提供页面、工具、路由与扩展
+contributions:
+  - tools
+  - page
+  - routes
+  - extensions
+distribution:
+  kind: release
+  packageUrl: https://github.com/moononnn/hanako-shiguangji/releases/download/v0.2.54/hanako-shiguangji-v0.2.54.zip
+  sha256: 2ac63df9dd76423a54ac5c35ca91c28328ab816ad3d43e9a0f4dcb8c6714a38e
+install:
+  defaultEnabled: true
