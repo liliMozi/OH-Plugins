@@ -53,6 +53,52 @@
       "install": {
         "defaultEnabled": false
       }
+    },
+    {
+      "schemaVersion": 1,
+      "id": "moxingxia",
+      "name": "模型匣",
+      "publisher": "moononnn",
+      "author": "moononnn & 小花",
+      "version": "0.1.22",
+      "description": "给 Hana 的模型供应商加开关和排序，并为小工具、大工具、识图模型配置备用模型。明确故障自动切换，临时波动连续两次切换，恢复由你手动掌控。",
+      "license": "MIT",
+      "categories": [
+        "效率"
+      ],
+      "keywords": [
+        "模型",
+        "供应商",
+        "降级",
+        "备用模型",
+        "故障切换"
+      ],
+      "homepage": "https://github.com/moononnn/hanako-moxingxia",
+      "repository": "https://github.com/moononnn/hanako-moxingxia",
+      "manifestUrl": "https://raw.githubusercontent.com/moononnn/hanako-moxingxia/main/manifest.json",
+      "readmeUrl": "https://raw.githubusercontent.com/moononnn/hanako-moxingxia/main/README.md",
+      "compatibility": {
+        "minAppVersion": "0.449.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "读写 Hana 供应商配置文件（带校验与快照保护）",
+        "在 127.0.0.1 本机调用 Hana 自带管理接口",
+        "发起网络请求（本机管理接口与检查更新）",
+        "提供页面与路由"
+      ],
+      "contributions": [
+        "page",
+        "routes"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/moononnn/hanako-moxingxia/releases/download/v0.1.22/moxingxia-v0.1.22.zip",
+        "sha256": "fbcfc68f36f5fc056c04b859dd938e95767cd482c57ed61555ad3d7bf4031659"
+      },
+      "install": {
+        "defaultEnabled": true
+      }
     }
   ]
 }
