@@ -1,0 +1,44 @@
+schemaVersion: 1
+id: hana-minimal-mode
+name: Hana Minimal Mode
+publisher: '2990927961'
+author: '2990927961'
+version: 0.5.0
+description: 'Progressive-disclosure router for HanaAgent: T0 anchor round, staged tool surfacing with full release afterwards, per-task platform tool packs, per-model routing, and single-target management from a sidebar panel. Ports dsh-routing-suite router-standard 1:1 while preserving native Hana tools.'
+license: MIT
+categories:
+  - Agent
+  - Utilities
+keywords:
+  - router
+  - minimal-mode
+  - anchor
+  - tool-disclosure
+  - dsh-routing-suite
+homepage: https://github.com/17308265071-pixel/hana-minimal-mode
+repository: https://github.com/17308265071-pixel/hana-minimal-mode
+manifestUrl: https://raw.githubusercontent.com/17308265071-pixel/hana-minimal-mode/main/manifest.json
+readmePath: plugins/hana-minimal-mode/README.md
+compatibility:
+  minAppVersion: 0.447.4
+trust: full-access
+permissions:
+  - Registers session/agent lifecycle hooks and a Pi SDK extension
+  - Manages per-session routing stage state under plugin-data
+  - Registers meta tools (phase_begin / phase_advance / request_tools / router_status / tools_catalog / tools_help)
+  - Provides a sidebar widget panel for single-target registration
+  - Injects routing guidance (persona / stage / capability map) into session system prompts
+contributions:
+  - tools
+  - commands
+  - configuration
+  - routes
+  - extensions
+  - widget
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/17308265071-pixel/hana-minimal-mode/releases/download/v0.5.0/hana-minimal-mode-v0.5.0.zip
+  sha256: a340622f311a0e86ae1d0d9798a2452e37853dcccabd27608bcb8ccffff7b28d
+install:
+  defaultEnabled: false
