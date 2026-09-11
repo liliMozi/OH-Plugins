@@ -3,6 +3,54 @@
   "plugins": [
     {
       "schemaVersion": 1,
+      "id": "hana-max-thinking",
+      "name": "Max Thinking",
+      "publisher": "2990927961",
+      "author": "2990927961",
+      "version": "0.2.0",
+      "description": "Force every chat model in every Hana session and channel (desktop / phone / bridge) to run at its highest supported thinking level, sync the level into session metadata, and inject a system-prompt guide so agents answer thinking-level questions with real status instead of guesses.",
+      "license": "MIT",
+      "categories": [
+        "Utilities",
+        "Agent"
+      ],
+      "keywords": [
+        "thinking",
+        "glm",
+        "channel",
+        "reasoning",
+        "glm-5.3-flash"
+      ],
+      "homepage": "https://github.com/17308265071-pixel/hana-max-thinking",
+      "repository": "https://github.com/17308265071-pixel/hana-max-thinking",
+      "manifestUrl": "https://raw.githubusercontent.com/17308265071-pixel/hana-max-thinking/main/manifest.json",
+      "readmePath": "plugins/hana-max-thinking/README.md",
+      "compatibility": {
+        "minAppVersion": "0.158.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "Updates session metadata (thinking level) through the session:update bus capability",
+        "Lists sessions for alignment sweeps",
+        "Writes its own status log and config under plugin-data"
+      ],
+      "contributions": [
+        "tools",
+        "skills",
+        "configuration",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/17308265071-pixel/hana-max-thinking/releases/download/v0.2.0/hana-max-thinking-v0.2.0.zip",
+        "sha256": "0920dd7f368fa7a2efdd79eaabbe7a4b9cf20b04cf2aa3b18fcb57ae923e56b8"
+      },
+      "install": {
+        "defaultEnabled": false
+      }
+    },
+    {
+      "schemaVersion": 1,
       "id": "hanako-hyperframes",
       "name": "HyperFrames Adapter for Hanako",
       "publisher": "OpenHanako",
