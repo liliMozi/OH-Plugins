@@ -1,0 +1,36 @@
+# mattpocock-native 市场条目（外部仓库方案，待确认仓库 URL）
+schemaVersion: 1
+id: mattpocock-native
+name: Matt Pocock Native
+publisher: Sairai
+author: Sairai
+version: 0.2.0
+description: Matt Pocock 工程流程本能层。ask-matt 海龟汤入口引导意图，主航道硬约束走完全流程，三道闸门（验收闸/独立审查闸/确认闸）固化为结构：无法跳过验收、无法自做自查、确认前无法动手修复。
+license: MIT
+categories:
+  - Workflow
+  - Engineering
+keywords:
+  - matt-pocock
+  - workflow
+  - engineering
+  - gates
+  - code-review
+repository: https://github.com/HeiyeHeiyu/mattpocock-native
+readmeUrl: https://raw.githubusercontent.com/HeiyeHeiyu/mattpocock-native/main/README.md
+compatibility:
+  minAppVersion: 0.450.0
+trust: full-access
+permissions:
+  - Reads and writes .matt-flow state files in the working directory
+  - Invokes subagent reviews through the host session
+  - Installs trigger skill content on session start
+contributions:
+  - tools
+  - skills
+distribution:
+  kind: release
+  packageUrl: https://github.com/HeiyeHeiyu/mattpocock-native/releases/download/v0.2.0/mattpocock-native.zip
+  sha256: 3a4599500149c71532b6cd4380c879457292c5d1c821bbbb103bc9ef7c870dba
+install:
+  defaultEnabled: false
