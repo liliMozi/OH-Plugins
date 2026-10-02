@@ -1,0 +1,42 @@
+schemaVersion: 1
+id: hanako2dsh
+name: Hanako2DSH
+publisher: ji-or-ji
+author: ji-or-ji
+version: 1.7.1
+description: "把本机官方的 DeepSeek Harness（DSH）接进 Hana：顶部开一个活的 DSH 页签，一句话把活派给它，完成后结果自动回到对话。"
+license: Apache-2.0
+categories:
+  - Automation
+  - Development
+keywords:
+  - deepseek
+  - deepseek-harness
+  - dsh
+  - agent
+  - bridge
+  - automation
+homepage: https://github.com/ji-or-ji/hanako2dsh
+repository: https://github.com/ji-or-ji/hanako2dsh
+readmePath: plugins/hanako2dsh/README.md
+compatibility:
+  minAppVersion: 0.421.0
+trust: full-access
+permissions:
+  - Spawns the locally installed DeepSeek Harness process
+  - Reads local DSH account credentials to log the spawned instance in
+  - Listens on a loopback port and proxies HTTP/WebSocket to the DSH UI
+  - Runs dispatched tasks with danger-full-access by default (configurable, can be lowered)
+contributions:
+  - tools
+  - configuration
+  - routes
+  - page
+  - widget
+  - lifecycle
+distribution:
+  kind: release
+  packageUrl: https://github.com/ji-or-ji/hanako2dsh/releases/download/v1.7.1/hanako2dsh.zip
+  sha256: fb490db9cb3470961b58b0d842345e6ce4ec3df150b9bb3c8719419b670545b0
+install:
+  defaultEnabled: false
