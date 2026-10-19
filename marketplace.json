@@ -3,6 +3,66 @@
   "plugins": [
     {
       "schemaVersion": 1,
+      "id": "hana-magpie",
+      "name": "Hana Magpie",
+      "publisher": "miaoyongxu",
+      "author": "Miaozi",
+      "version": "1.0.0",
+      "description": "Run Magpie's provider plugins, local gateway, routing groups and usage inside HanaAgent. No Magpie installation required.",
+      "license": "MIT",
+      "categories": [
+        "AI",
+        "Models",
+        "Developer Tools"
+      ],
+      "keywords": [
+        "magpie",
+        "providers",
+        "gateway",
+        "routing",
+        "usage",
+        "opencode",
+        "hanaagent"
+      ],
+      "homepage": "https://github.com/miaoyongxu/hana-magpie",
+      "repository": "https://github.com/miaoyongxu/hana-magpie",
+      "manifestUrl": "https://raw.githubusercontent.com/miaoyongxu/hana-magpie/main/manifest.json",
+      "readmeUrl": "https://raw.githubusercontent.com/miaoyongxu/hana-magpie/main/README.zh-CN.md",
+      "source": {
+        "kind": "external-repository"
+      },
+      "compatibility": {
+        "minAppVersion": "0.450.0"
+      },
+      "trust": "full-access",
+      "permissions": [
+        "Runs a loopback HTTP gateway on 127.0.0.1:3525",
+        "Reads and updates HanaAgent provider and agent configuration through the local API",
+        "Runs Magpie/OpenCode provider plugins in a child process with their own credentials",
+        "Stores provider credentials in the HanaAgent plugin data directory"
+      ],
+      "contributions": [
+        "tools",
+        "routes",
+        "page",
+        "lifecycle"
+      ],
+      "distribution": {
+        "kind": "release",
+        "packageUrl": "https://github.com/miaoyongxu/hana-magpie/releases/download/v1.0.0/hana-magpie.zip",
+        "sha256": "9af0cd406373eb86524b138b95022773c2746f4372efaf08193c16464138b198"
+      },
+      "install": {
+        "defaultEnabled": false
+      },
+      "screenshots": [
+        "https://raw.githubusercontent.com/miaoyongxu/hana-magpie/main/docs/screenshot-providers.png",
+        "https://raw.githubusercontent.com/miaoyongxu/hana-magpie/main/docs/screenshot-add-provider.png",
+        "https://raw.githubusercontent.com/miaoyongxu/hana-magpie/main/docs/screenshot-provider-detail.png"
+      ]
+    },
+    {
+      "schemaVersion": 1,
       "id": "hanako-hyperframes",
       "name": "HyperFrames Adapter for Hanako",
       "publisher": "OpenHanako",
