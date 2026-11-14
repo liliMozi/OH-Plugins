@@ -1,0 +1,38 @@
+schemaVersion: 1
+id: xiaoxiao-tts
+name: 陌上花
+publisher: HeiyeHeiyu
+author: HeiyeHeiyu
+version: 0.1.0
+description: Local offline text-to-speech for Hana powered by Microsoft Xiaoxiao HD voices — tap a message to read it aloud, fully offline, with adjustable voice, rate, pitch and pauses.
+license: MIT
+categories:
+  - Tools
+keywords:
+  - tts
+  - speech
+  - xiaoxiao
+  - offline
+  - voice
+homepage: https://github.com/HeiyeHeiyu/xiaoxiao-tts
+repository: https://github.com/HeiyeHeiyu/xiaoxiao-tts
+readmeUrl: https://raw.githubusercontent.com/HeiyeHeiyu/xiaoxiao-tts/main/README.md
+source:
+  kind: external-repository
+compatibility:
+  minAppVersion: 1.5.7
+trust: full-access
+permissions:
+  - Runs local PowerShell subprocesses for speech synthesis and playback
+  - Stores plugin settings and audio cache in its own data directory
+  - Registers a Hana speech-synthesis media provider
+contributions:
+  - tools
+  - providers
+  - page
+distribution:
+  kind: release
+  packageUrl: https://github.com/HeiyeHeiyu/xiaoxiao-tts/releases/download/v0.1.0/app-xiaoxiao-tts-0.1.0.zip
+  sha256: 77d082929f9ec1cafd7a56d5c489173ed33bc93af874e8e5c63719f98f89de27
+install:
+  defaultEnabled: false
